@@ -31,6 +31,7 @@ class MassimAdapter
     puts "#{ex.class}: #{ex.message}"
   end
   
+  # This seems to be not working
   def handlePercept(agent_name, percept)
     puts "Percept for #{agent_name}: #{percept}"
   end
