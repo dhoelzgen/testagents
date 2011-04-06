@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interfaceConfig scenario="mars2011" host="localhost" port="12300" scheduling="yes" times="no" notifications="no">
+  <entities>
+    <entity name="a1" username="a1" password="1" xml="no"/>
+    <entity name="a2" username="a2" password="1" xml="no"/>
+    <entity name="a3" username="a3" password="1" xml="no"/>
+    <entity name="a4" username="a4" password="1" xml="no"/>
+    <entity name="a5" username="a5" password="1" xml="no"/>
+    <entity name="a6" username="a6" password="1" xml="no"/>
+    <entity name="a7" username="a7" password="1" xml="no"/>
+    <entity name="a8" username="a8" password="1" xml="no"/>
+    <entity name="a9" username="a9" password="1" xml="no"/>
+    <entity name="a10" username="a10" password="1" xml="no"/>
+    <entity name="b1" username="b1" password="1" xml="no"/>
+    <entity name="b2" username="b2" password="1" xml="no"/>
+    <entity name="b3" username="b3" password="1" xml="no"/>
+    <entity name="b4" username="b4" password="1" xml="no"/>
+    <entity name="b5" username="b5" password="1" xml="no"/>
+    <entity name="b6" username="b6" password="1" xml="no"/>
+    <entity name="b7" username="b7" password="1" xml="no"/>
+    <entity name="b8" username="b8" password="1" xml="no"/>
+    <entity name="b9" username="b9" password="1" xml="no"/>
+    <entity name="b10" username="b10" password="1" xml="no"/>
+  </entities>
+</interfaceConfig>
