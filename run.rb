@@ -13,9 +13,15 @@ System.setOut(PrintStream.new(java_out_stream))
 # Note - To change java output do this:
 # puts my_output_stream.toString.gsub("Static", "Dynamic")
 
-agents = Array.new
-agents << (SimpleAgent.new "a1")
-# agents << (SimpleAgent.new "a2")
-# agents << (SimpleAgent.new "a3")
+adapter = MassimAdapter.new
 
-agents.each { |agent| agent.run}
+agents = Array.new
+agents << (SimpleAgent.new "a1", adapter)
+agents << (SimpleAgent.new "a2", adapter)
+agents << (SimpleAgent.new "a3", adapter)
+
+agents.each do |agent|
+  Thread.new { agent.run }
+end
+
+adapter.start

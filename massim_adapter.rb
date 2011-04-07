@@ -6,8 +6,10 @@ require 'lib/eismassim-1.0.jar'
 require 'massim_util'
 
 class MassimAdapter
-  include Java::eis.AgentListener
+  include_class Java::eis.AgentListener
   include_class Java::eis.EILoader
+  
+  include Java::eis.AgentListener
   
   def initialize
     className = "massim.eismassim.EnvironmentInterface"
@@ -31,9 +33,8 @@ class MassimAdapter
     puts "#{ex.class}: #{ex.message}"
   end
   
-  # This seems to be not working
   def handlePercept(agent_name, percept)
-    puts "Percept for #{agent_name}: #{percept}"
+    puts "TODO: HANDLE PERCEPT FOR #{agent_name}: #{percept}"
   end
   
   def percepts(agent_name)
@@ -50,7 +51,7 @@ class MassimAdapter
   
   def start
     @environment_interface.start
-  rescue => e
+  rescue => ex
     puts "#{ex.class}: #{ex.message}"
   end
   

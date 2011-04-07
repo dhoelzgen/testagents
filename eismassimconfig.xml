@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<interfaceConfig scenario="mars2011" host="localhost" port="12300" scheduling="yes" times="no" notifications="no">
+<interfaceConfig scenario="mars2011" host="localhost" port="12300" scheduling="yes" times="no" notifications="yes">
   <entities>
     <entity name="a1" username="a1" password="1" xml="no"/>
     <entity name="a2" username="a2" password="1" xml="no"/>
