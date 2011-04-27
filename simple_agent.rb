@@ -15,7 +15,7 @@ class SimpleAgent
       print_perceptions @adapter.percepts(@agent_name)
       @adapter.act! @agent_name, MassimActions::goto_action("node1") if @agent_name == "a1"
       @adapter.act! @agent_name, MassimActions::recharge_action if @agent_name == "a2"
-      sleep 5
+      sleep 3
     end
   end
 

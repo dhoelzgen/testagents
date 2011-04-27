@@ -1,7 +1,6 @@
 include Java
 
-require 'lib/eis-0.3.jar'
-require 'lib/eismassim-1.0.jar'
+require 'lib/modified-eis'
 
 require 'massim_util'
 
@@ -34,7 +33,16 @@ class MassimAdapter
   end
   
   def handlePercept(agent_name, percept)
-    puts "TODO: HANDLE PERCEPT FOR #{agent_name}: #{percept}"
+    # puts "TODO: HANDLE PERCEPT FOR #{agent_name}: #{percept}"
+  end
+  
+  def handlePercepts(agent_name, percepts)
+    puts "handlePercepts called for agent #{agent_name}"
+    
+    percepts.each do |percept|
+      puts " - #{percept}"
+    end
+      
   end
   
   def percepts(agent_name)
