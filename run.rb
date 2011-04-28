@@ -20,8 +20,4 @@ agents << (SimpleAgent.new "a1", adapter)
 agents << (SimpleAgent.new "a2", adapter)
 agents << (SimpleAgent.new "a3", adapter)
 
-agents.each do |agent|
-  Thread.new { agent.run }
-end
-
 adapter.start

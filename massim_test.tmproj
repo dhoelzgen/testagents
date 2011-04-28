@@ -3,22 +3,20 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>massim_adapter.rb</string>
+	<string>simple_agent.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
 			<key>filename</key>
 			<string>massim_util.rb</string>
 			<key>lastUsed</key>
-			<date>2011-04-27T09:52:59Z</date>
+			<date>2011-04-27T22:03:50Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>massim_adapter.rb</string>
 			<key>lastUsed</key>
-			<date>2011-04-27T10:17:21Z</date>
-			<key>selected</key>
-			<true/>
+			<date>2011-04-27T22:18:35Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -30,19 +28,21 @@
 			<key>filename</key>
 			<string>run.rb</string>
 			<key>lastUsed</key>
-			<date>2011-04-27T10:17:21Z</date>
+			<date>2011-04-27T22:18:37Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>simple_agent.rb</string>
 			<key>lastUsed</key>
-			<date>2011-04-27T09:52:50Z</date>
+			<date>2011-04-27T22:18:37Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>percepts.rb</string>
 			<key>lastUsed</key>
-			<date>2011-04-27T09:55:10Z</date>
+			<date>2011-04-27T21:26:16Z</date>
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
@@ -68,28 +68,44 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>7</integer>
+				<integer>32</integer>
 				<key>line</key>
-				<integer>43</integer>
+				<integer>35</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>6</integer>
+			<integer>0</integer>
 		</dict>
 		<key>massim_util.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>26</integer>
+				<integer>15</integer>
 				<key>line</key>
-				<integer>2</integer>
+				<integer>20</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>11</integer>
+				<key>line</key>
+				<integer>20</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>23</integer>
+				<key>line</key>
+				<integer>20</integer>
+			</dict>
 		</dict>
 		<key>percepts.rb</key>
 		<dict>
@@ -126,9 +142,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>32</integer>
+				<integer>45</integer>
 				<key>line</key>
-				<integer>18</integer>
+				<integer>6</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -140,14 +156,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>13</integer>
+				<integer>34</integer>
 				<key>line</key>
-				<integer>17</integer>
+				<integer>16</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>4</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
@@ -162,6 +178,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<false/>
 	<key>windowFrame</key>
-	<string>{{263, 117}, {1280, 774}}</string>
+	<string>{{230, 141}, {1280, 774}}</string>
 </dict>
 </plist>
