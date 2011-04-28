@@ -31,13 +31,14 @@ class ActiveAgent
     @adapter.act! @name, action
   end
   
-  def self.method_missing(sym, *args, &block)
-    unless /infer.*/ === sym.to_s # Should check against 
-      puts "Magic Symbol #{sym}"
-      return sym
-    end
-    puts "Magic Method #{sym} with args #{args}"
+  def self.infer(*args, &block)
+    puts "Infer method with args #{args}"
     block.call
+  end
+  
+  def self.method_missing(sym, *args, &block)
+    # puts "Magic symbol #{sym}(#{args})"
+    return ( args.any? ? "#{sym}(#{args})" : "#{sym}" )
   end
 
 end
