@@ -15,22 +15,3 @@ module MassimActions
   end
   
 end
-
-module MassimHelpers
-
-  def self.get_percepts(percepts)
-    result = Array.new
-    percepts.each do |percept_array|
-      percept_array.each do |percept_ll|
-        percept_ll.each do |percept|
-          # Idea: take these results of form visibleEdge(vertex3,vertex6) to
-          # eval directly to ruby classes, or even better, prolog facts
-          result << "#{percept}"
-        end
-      end
-    end
-    return result
-  rescue
-    return []
-  end
-end

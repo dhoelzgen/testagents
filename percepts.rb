@@ -3,3 +3,37 @@ a1 = [edges(47), steps(1000), vertices(20), simStart, id(0), visibleEdge(vertex3
 
 lastActionResult(successful)
 lastAction(skip)
+
+def print_perceptions(percepts)
+  result = ""
+  percepts.each do |percept|
+    # Idea: take these results of form visibleEdge(vertex3,vertex6) to
+    # eval directly to ruby classes, or even better, prolog facts
+    case "#{percept}"
+    when /lastAction\((.*)\)/
+      puts "#{@name}'s action: #$1"
+    when /lastActionResult\((.*)\)/
+      puts "#{@name}'s result: #$1"
+    else
+      #
+    end
+  end
+  result
+end
+
+
+# Test percepts
+percepts.each do |percept|
+  # puts " - #{percept}"
+end
+
+puts print_perceptions percepts unless percepts.empty?
+
+sleep 1 if @name == "a3"
+
+# Test actions
+@adapter.act! @name, MassimActions::goto_action("node1") if @name == "a1"
+@adapter.act! @name, MassimActions::recharge_action if @name == "a2"
+
+# Test cycle
+deliberate if (@name == "a3" && percepts.any?)

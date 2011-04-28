@@ -1,6 +1,7 @@
 include Java
 
 require 'simple_agent'
+require 'massim_adapter'
 
 # Redirect java output stream
 include_class 'java.io.PrintStream'
