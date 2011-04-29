@@ -1,3 +1,6 @@
+require 'belief'
+require 'goal'
+
 class ActiveAgent
   attr_accessor :name
   
@@ -31,14 +34,20 @@ class ActiveAgent
     @adapter.act! @name, action
   end
   
-  def self.infer(*args, &block)
-    puts "Infer method with args #{args}"
-    block.call
+  # Put this into another form, see Eloquent Ruby, p. 345
+  def self.on_belief(belief, *context, &block)
+    @belief_blocks ||= Hash.new
+    @belief_blocks[Belief.new(belief, context)] = block
   end
   
-  def self.method_missing(sym, *args, &block)
-    # puts "Magic symbol #{sym}(#{args})"
-    return ( args.any? ? "#{sym}(#{args})" : "#{sym}" )
+  def self.on_goal(goal, *context, &block)
+    @goal_blocks ||= Hash.new
+    @goal_blocks[Goal.new(goal, context)] = block
+  end
+  
+  def self.motive(motive, &block)
+    @motive_blocks ||= Hash.new
+    @motive_blocks[motive] = block
   end
 
 end

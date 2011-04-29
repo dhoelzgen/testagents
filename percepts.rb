@@ -37,3 +37,62 @@ sleep 1 if @name == "a3"
 
 # Test cycle
 deliberate if (@name == "a3" && percepts.any?)
+
+
+----- Magic Experiments
+
+# Base
+
+# TODO
+# All following stuff should be put into a belief class based on
+# BaseObject, to get rid of all predefined methods on object
+
+def self.infer(*args, &block)
+  puts "Infer method with args #{args}"
+  block.call
+end
+
+def self.method_missing(sym, *args, &block)
+  define_method(sym) do
+    @ivars[sym]
+  end
+  
+  define_method("#{sym}=".to_sym) do |value|
+    @ivars[sym] = value
+  end
+  
+  return ( args.any? ? "#{sym}(#{args})" : "#{sym}" )
+end
+
+def self.inherited(klass)
+  klass.define_method(:method_missing) do |sym, *args|
+    puts "Warning: Call to undefined predicate #{sym}(#{args})"
+    
+    define_method(sym) do
+      @ivars[sym]
+    end
+
+    define_method("#{sym}=".to_sym) do |value|
+      @ivars[sym] = value
+    end
+    
+    # Retry with new methods
+    return ""
+  end
+end
+
+# Inherited Agent
+
+infer lastAction do
+  puts "Inner block called"
+  lastAction = testAction
+  puts "Test: #{lastAction} (#{lastAction.class})"
+end
+
+infer lastAction(test_argument) do
+  puts "Second inner block called"
+end
+
+# infer lastActionResult => [ test(argument), test2(argument2) ]
+
+----

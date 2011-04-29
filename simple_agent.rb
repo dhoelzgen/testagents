@@ -3,12 +3,22 @@ require 'massim_util'
 
 class SimpleAgent < ActiveAgent
   
-  infer lastAction do
-    puts "Inner block called"
+  # Beliefsrevision (not really atm...)
+  
+  on_belief 'lastAction' do
+    puts "Last Action: "
   end
   
-  infer lastAction(test_argument) do
-    puts "Inner block called"
+  # Desire Generation
+  
+  motive 'recharge' do
+    return 1
+  end
+  
+  # Goal handling
+  
+  on_goal 'recharge' do
+    puts "Decided to recharge: "
   end
   
 end
