@@ -6,8 +6,7 @@ class Object
     begin
       ret = send(mname, *args)
     ensure
-      class << self; self end.class_eval{ undef_method(mname) } rescue 
-      nil
+      class << self; self end.class_eval{ undef_method(mname) } rescue  nil
     end
     ret
   end

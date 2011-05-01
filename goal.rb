@@ -1,8 +1,10 @@
 class Goal
-  attr_accessor :goal, :context
+  attr_accessor :name, :context, :block
 
-  def initialize(goal, context)
-    @belief = belief
-    @goal = goal
+  def initialize(name, context, block)
+    @name = name
+    @context = context
+    @block = block
   end
+  
 end

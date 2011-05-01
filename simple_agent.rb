@@ -12,4 +12,8 @@ class SimpleAgent < ActiveAgent
     10
   end
   
+  on_goal 'recharge' do
+    act! MassimActions::recharge_action
+  end
+  
 end

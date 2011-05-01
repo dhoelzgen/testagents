@@ -1,5 +1,6 @@
 require 'belief_base'
 require 'motive'
+require 'goal'
 
 class ActiveAgent
   attr_accessor :name
@@ -9,6 +10,7 @@ class ActiveAgent
   
   @@percept_blocks = Hash.new
   @@motive_ary = Array.new
+  @@goal_ary = Array.new
   
   def initialize(agent_name, adapter)
     @name = agent_name
@@ -55,12 +57,25 @@ class ActiveAgent
     end
     
     @@motive_ary.sort!
-    
-    @@motive_ary.each { |motive| puts motive.name }
   end
   
   def deliberate
-    puts "Deliberation for #{@name}"
+    return unless @@motive_ary.any?
+    
+    goal_name = @@motive_ary.last.name
+    candidate_goals = @@goal_ary.find_all { |goal| goal.name == goal_name }
+    
+    return unless candidate_goals.any?
+    
+    candidate_goals.delete_if do
+      false # Context check
+    end
+    
+    return unless candidate_goals.any?
+    
+    instance_eval( &candidate_goals.first.block )
+    
+    
   rescue => ex
     puts "#{ex.class}: #{ex.message}"
   end
@@ -81,6 +96,9 @@ class ActiveAgent
   def self.motivate(name, &block)
     @@motive_ary << Motive.new(name, block)
   end
-
+  
+  def self.on_goal(name, *args, &block)
+    @@goal_ary << Goal.new(name, args, block)
+  end
 
 end

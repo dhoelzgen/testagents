@@ -10,57 +10,75 @@
 			<key>filename</key>
 			<string>massim_util.rb</string>
 			<key>lastUsed</key>
-			<date>2011-04-29T10:19:48Z</date>
+			<date>2011-05-01T18:56:50Z</date>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>test.rb</string>
+			<key>lastUsed</key>
+			<date>2011-05-01T14:42:57Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>massim_adapter.rb</string>
 			<key>lastUsed</key>
-			<date>2011-04-29T10:19:48Z</date>
+			<date>2011-05-01T19:05:49Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>eismassimconfig.xml</string>
 			<key>lastUsed</key>
-			<date>2011-04-29T10:19:49Z</date>
+			<date>2011-05-01T14:42:59Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
-			<string>belief.rb</string>
+			<string>belief_base.rb</string>
 			<key>lastUsed</key>
-			<date>2011-04-29T10:26:28Z</date>
+			<date>2011-05-01T19:07:57Z</date>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>motive.rb</string>
+			<key>lastUsed</key>
+			<date>2011-05-01T19:24:33Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>goal.rb</string>
 			<key>lastUsed</key>
-			<date>2011-04-29T10:26:26Z</date>
+			<date>2011-05-01T19:25:33Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>active_agent.rb</string>
 			<key>lastUsed</key>
-			<date>2011-04-29T10:29:27Z</date>
+			<date>2011-05-01T19:34:03Z</date>
 			<key>selected</key>
 			<true/>
 		</dict>
 		<dict>
 			<key>filename</key>
+			<string>initialize.rb</string>
+			<key>lastUsed</key>
+			<date>2011-05-01T19:25:31Z</date>
+		</dict>
+		<dict>
+			<key>filename</key>
 			<string>run.rb</string>
 			<key>lastUsed</key>
-			<date>2011-04-29T10:19:48Z</date>
+			<date>2011-05-01T19:34:01Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>simple_agent.rb</string>
 			<key>lastUsed</key>
-			<date>2011-04-29T10:29:27Z</date>
+			<date>2011-05-01T19:34:03Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>percepts.rb</string>
 			<key>lastUsed</key>
-			<date>2011-04-29T10:19:48Z</date>
+			<date>2011-05-01T11:19:56Z</date>
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
@@ -72,37 +90,39 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>5</integer>
+				<integer>11</integer>
 				<key>line</key>
-				<integer>50</integer>
+				<integer>100</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>7</integer>
+			<integer>58</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>6</integer>
+				<key>line</key>
+				<integer>100</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>14</integer>
+				<key>line</key>
+				<integer>100</integer>
+			</dict>
 		</dict>
-		<key>belief.rb</key>
+		<key>belief_base.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>12</integer>
+				<integer>31</integer>
 				<key>line</key>
-				<integer>5</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>eismassimconfig.xml</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>113</integer>
-				<key>line</key>
-				<integer>1</integer>
+				<integer>13</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -114,28 +134,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>16</integer>
+				<integer>2</integer>
 				<key>line</key>
-				<integer>5</integer>
+				<integer>8</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
-		</dict>
-		<key>massim_adapter.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>33</integer>
-				<key>line</key>
-				<integer>48</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>18</integer>
 		</dict>
 		<key>massim_util.rb</key>
 		<dict>
@@ -151,28 +157,14 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>percepts.rb</key>
+		<key>run.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>41</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>run.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>13</integer>
-				<key>line</key>
-				<integer>23</integer>
+				<integer>19</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -184,9 +176,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>3</integer>
+				<integer>29</integer>
 				<key>line</key>
-				<integer>23</integer>
+				<integer>15</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -196,15 +188,12 @@
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>massim_adapter.rb</string>
-		<string>percepts.rb</string>
 		<string>massim_util.rb</string>
-		<string>run.rb</string>
+		<string>belief_base.rb</string>
 		<string>active_agent.rb</string>
 		<string>goal.rb</string>
-		<string>belief.rb</string>
 		<string>simple_agent.rb</string>
-		<string>eismassimconfig.xml</string>
+		<string>run.rb</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>
