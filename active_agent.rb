@@ -38,7 +38,7 @@ class ActiveAgent
       percept_ary = "#{percept_string}".scan(/[A-Za-z0-9]+/) 
       percept_name = percept_ary.slice!(0)
             
-      applicable_blocks = @@percept_blocks.find_all { |name, block| name == percept_name }
+      applicable_blocks = @@percept_blocks.find_all { |name, block| name.to_s == percept_name }
       
       next unless applicable_blocks.any?
       
@@ -67,8 +67,13 @@ class ActiveAgent
     
     return unless candidate_goals.any?
     
-    candidate_goals.delete_if do
-      false # Context check
+    candidate_goals.delete_if do |goal|
+      next true unless goal.context.any?
+      
+      goal.context.inject(true) do |rmem, arg|
+        next false if ( @belief_base.send(arg.first) != arg.last )
+        rmem
+      end
     end
     
     return unless candidate_goals.any?
@@ -97,7 +102,7 @@ class ActiveAgent
     @@motive_ary << Motive.new(name, block)
   end
   
-  def self.on_goal(name, *args, &block)
+  def self.on_goal(name, args={}, &block)
     @@goal_ary << Goal.new(name, args, block)
   end
 
