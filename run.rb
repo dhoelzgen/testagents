@@ -1,5 +1,7 @@
 include Java
 
+require 'initialize'
+
 require 'simple_agent'
 require 'massim_adapter'
 
@@ -18,7 +20,7 @@ adapter = MassimAdapter.new
 
 agents = Array.new
 agents << (SimpleAgent.new "a1", adapter)
-agents << (SimpleAgent.new "a2", adapter)
-agents << (SimpleAgent.new "a3", adapter)
+# agents << (SimpleAgent.new "a2", adapter)
+# agents << (SimpleAgent.new "a3", adapter)
 
 adapter.start
