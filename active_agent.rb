@@ -31,7 +31,7 @@ class ActiveAgent
       sleep 
     end
   rescue => ex
-    puts "#{ex.class} in agent cycle: #{ex.message}"
+    puts "#{ex.class} in agent cycle: #{ex.message}\n#{ex.backtrace.inspect}"
   end
   
   def revise(percepts={})
@@ -50,6 +50,10 @@ class ActiveAgent
       end
     end
   end
+  
+  # Error: Intensities must be kept as ivars
+  # TypeError in agent cycle: can't modify array during iteration
+  # ["org/jruby/RubyArray.java:3191:in `sort!'", "./active_agent.rb:62:in `motivate'", "./active_agent.rb:29:in `run'", "./active_agent.rb:22:in `initialize'", "org/jruby/RubyProc.java:268:in `call'", "org/jruby/RubyProc.java:232:in `call'"]
   
   def motivate
     return unless @@motive_ary.any?

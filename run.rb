@@ -20,7 +20,14 @@ adapter = MassimAdapter.new
 
 agents = Array.new
 agents << (SimpleAgent.new "a1", adapter)
-# agents << (SimpleAgent.new "a2", adapter)
-# agents << (SimpleAgent.new "a3", adapter)
+agents << (SimpleAgent.new "a2", adapter)
+agents << (SimpleAgent.new "a3", adapter)
+agents << (SimpleAgent.new "a4", adapter)
+agents << (SimpleAgent.new "a5", adapter)
+agents << (SimpleAgent.new "a6", adapter)
+agents << (SimpleAgent.new "a7", adapter)
+agents << (SimpleAgent.new "a8", adapter)
+agents << (SimpleAgent.new "a9", adapter)
+agents << (SimpleAgent.new "a10", adapter)
 
 adapter.start

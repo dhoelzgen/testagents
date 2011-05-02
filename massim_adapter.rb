@@ -41,7 +41,9 @@ class MassimAdapter
   
   def handlePercepts(agent_name, percepts)
     @cached_percepts[agent_name] = percepts
-    @attached_agents[agent_name].wakeup
+    
+    # TODO: Re-create thread if killed
+    @attached_agents[agent_name].run
   end
   
   def new_percepts(agent_name)
