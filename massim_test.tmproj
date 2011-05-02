@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>active_agent.rb</string>
+	<string>simple_agent.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
 			<key>filename</key>
 			<string>massim_util.rb</string>
 			<key>lastUsed</key>
-			<date>2011-05-01T18:56:50Z</date>
+			<date>2011-05-02T07:34:52Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -34,7 +34,7 @@
 			<key>filename</key>
 			<string>belief_base.rb</string>
 			<key>lastUsed</key>
-			<date>2011-05-01T19:07:57Z</date>
+			<date>2011-05-01T19:58:34Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -46,15 +46,13 @@
 			<key>filename</key>
 			<string>goal.rb</string>
 			<key>lastUsed</key>
-			<date>2011-05-01T19:25:33Z</date>
+			<date>2011-05-02T07:33:15Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>active_agent.rb</string>
 			<key>lastUsed</key>
-			<date>2011-05-01T19:34:03Z</date>
-			<key>selected</key>
-			<true/>
+			<date>2011-05-02T07:33:19Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -66,19 +64,21 @@
 			<key>filename</key>
 			<string>run.rb</string>
 			<key>lastUsed</key>
-			<date>2011-05-01T19:34:01Z</date>
+			<date>2011-05-02T07:34:54Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>simple_agent.rb</string>
 			<key>lastUsed</key>
-			<date>2011-05-01T19:34:03Z</date>
+			<date>2011-05-02T07:34:54Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>percepts.rb</string>
 			<key>lastUsed</key>
-			<date>2011-05-01T11:19:56Z</date>
+			<date>2011-05-02T07:32:43Z</date>
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
@@ -90,30 +90,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>11</integer>
+				<integer>16</integer>
 				<key>line</key>
-				<integer>100</integer>
+				<integer>70</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>58</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>6</integer>
-				<key>line</key>
-				<integer>100</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>14</integer>
-				<key>line</key>
-				<integer>100</integer>
-			</dict>
+			<integer>49</integer>
 		</dict>
 		<key>belief_base.rb</key>
 		<dict>
@@ -148,23 +132,53 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>3</integer>
+				<integer>19</integer>
 				<key>line</key>
-				<integer>16</integer>
+				<integer>12</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
+		<key>percepts.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>56</integer>
+				<key>line</key>
+				<integer>34</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>21</integer>
+				<key>line</key>
+				<integer>34</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>56</integer>
+				<key>line</key>
+				<integer>34</integer>
+			</dict>
+		</dict>
 		<key>run.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>58</integer>
 				<key>line</key>
-				<integer>19</integer>
+				<integer>16</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -176,9 +190,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>29</integer>
+				<integer>32</integer>
 				<key>line</key>
-				<integer>15</integer>
+				<integer>46</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -189,6 +203,7 @@
 	<key>openDocuments</key>
 	<array>
 		<string>massim_util.rb</string>
+		<string>percepts.rb</string>
 		<string>belief_base.rb</string>
 		<string>active_agent.rb</string>
 		<string>goal.rb</string>
@@ -198,6 +213,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<false/>
 	<key>windowFrame</key>
-	<string>{{341, 242}, {1280, 774}}</string>
+	<string>{{0, 70}, {1280, 708}}</string>
 </dict>
 </plist>

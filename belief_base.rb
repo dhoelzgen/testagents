@@ -5,6 +5,10 @@ class BeliefBase
     yield( self ) if block_given?
   end
   
+  def empty?
+    return @beliefs.empty?
+  end
+  
   
   # TODO: Think about base class, so there will be no conflicts
   #       with method names

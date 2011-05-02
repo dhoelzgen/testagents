@@ -15,12 +15,15 @@ class ActiveAgent
   def initialize(agent_name, adapter)
     @name = agent_name
     @adapter = adapter
-    @adapter.open agent_name, agent_name, Thread.new { run }
-    
     @belief_base = BeliefBase.new
+    
+    setup if self.respond_to? :setup
+    
+    @adapter.open agent_name, agent_name, Thread.new { run }
   end
   
   def run
+    sleep if @belief_base.empty?
     while true
       revise @adapter.new_percepts( @name )
       motivate
@@ -53,7 +56,7 @@ class ActiveAgent
     
     @@motive_ary.each do |motive|
       associated_block = motive.block
-      motive.intensity = instance_eval( &associated_block )
+      motive.intensity = instance_exec( &associated_block )
     end
     
     @@motive_ary.sort!
@@ -68,7 +71,7 @@ class ActiveAgent
     return unless candidate_goals.any?
     
     candidate_goals.delete_if do |goal|
-      next true unless goal.context.any?
+      next false unless goal.context.any?
       
       goal.context.inject(true) do |rmem, arg|
         next false if ( @belief_base.send(arg.first) != arg.last )
@@ -78,6 +81,7 @@ class ActiveAgent
     
     return unless candidate_goals.any?
     
+    say "Goal: #{candidate_goals.first.name} (#{@@motive_ary.last.intensity})"
     instance_eval( &candidate_goals.first.block )
     
     

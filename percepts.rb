@@ -96,3 +96,15 @@ end
 # infer lastActionResult => [ test(argument), test2(argument2) ]
 
 ----
+
+### BETTER GOALHANDLING
+
+on :goal_name do
+  context do
+    
+  end
+  
+  plan do
+    
+  end
+end
