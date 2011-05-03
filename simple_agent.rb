@@ -77,6 +77,11 @@ class SimpleAgent < ActiveAgent
   # Plans
   
   on_goal :randomWalk do
+    # TODO: Tend to walk towards nodes without other agents friendly (near it)
+    # TODO: Tend to walk towards nodes with high value
+    # TODO: Tend to stay if this is a good position
+    # TODO: Tend to avoid nodes with enabled emeny agents (let attackers do this)
+    
     next unless @graph[bb.position]
     edge = @graph[bb.position].random_edge # TODO: Select only edges with weight lower than maxEnergy
     next unless edge
@@ -127,6 +132,10 @@ class SimpleAgent < ActiveAgent
   
   def probe!
     act! MassimActions::probe
+  end
+  
+  def attack!(enemy)
+    act! MassimActions::attack(enemy.name)
   end
   
 end

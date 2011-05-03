@@ -14,4 +14,6 @@ class ExplorerAgent < SimpleAgent
     probe!
   end
   
+  # TODO: "Random Walk" towards unprobed nodes
+  
 end

@@ -3,7 +3,7 @@ require 'motive'
 require 'goal'
 
 class ActiveAgent
-  attr_accessor :name
+  attr_accessor :name, :team
   
   attr_accessor :belief_base
   alias_method :bb, :belief_base
@@ -16,8 +16,9 @@ class ActiveAgent
   def self.motive_raw; @motive_raw; end
   def self.goal_ary; @goal_ary; end
   
-  def initialize(agent_name, adapter)
+  def initialize(agent_name, team, adapter)
     @name = agent_name
+    @team = team
     @adapter = adapter
     @belief_base = BeliefBase.new
     @motive_ary = self.class.motive_raw.dup
@@ -51,6 +52,7 @@ class ActiveAgent
   
   def revise(percepts={})
     return unless percepts.any? and self.class.percept_blocks.any?
+    bb.new_cycle
     
     percepts.each do |percept_string|
       percept_string = percept_string.dup

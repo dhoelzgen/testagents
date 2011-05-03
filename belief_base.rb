@@ -1,8 +1,15 @@
 class BeliefBase
   
+  attr_accessor :transient
+  
   def initialize()
     @beliefs = Hash.new
+    @transient = Hash.new
     yield( self ) if block_given?
+  end
+  
+  def new_cycle
+    @transient.clear
   end
   
   def empty?

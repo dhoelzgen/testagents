@@ -22,4 +22,8 @@ module MassimActions
     Action.new "probe"
   end
   
+  def self.attack(target_name)
+    Action.new "attack", (Identifier.new target_name)
+  end
+  
 end
