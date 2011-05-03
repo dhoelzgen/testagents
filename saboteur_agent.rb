@@ -5,6 +5,9 @@ class SaboteurAgent < SimpleAgent
   
   # visibleEntity(a2,vertex4,A,normal)
   on_percept :visibleEntity do |name, position, team, status|
+    # TODO: Move this to SimpleAgent
+    # TODO: Should add agents to the graph (with timestamp, and remove old position)
+    # TODO: Update this information by inspector
     next if team == @team
     
     bb.transient[:attack] ||= Array.new

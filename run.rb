@@ -33,4 +33,15 @@ agents << (SimpleAgent.new "a8", "A", adapter)
 agents << (SimpleAgent.new "a9", "A", adapter) # Inspector
 agents << (SimpleAgent.new "a10", "A", adapter)
 
+# agents << (ExplorerAgent.new "b1", "B", adapter) # Explorer
+# agents << (ExplorerAgent.new "b2", "B", adapter)
+# agents << (SimpleAgent.new "b3", "B", adapter) # Repairer
+# agents << (SimpleAgent.new "b4", "B", adapter)
+# agents << (SaboteurAgent.new "b5", "B", adapter) # Saboteur
+# agents << (SaboteurAgent.new "b6", "B", adapter)
+# agents << (SimpleAgent.new "b7", "B", adapter) # Sentinel
+# agents << (SimpleAgent.new "b8", "B", adapter)
+# agents << (SimpleAgent.new "b9", "B", adapter) # Inspector
+# agents << (SimpleAgent.new "b10", "B", adapter)
+
 adapter.start

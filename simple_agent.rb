@@ -9,6 +9,10 @@ class SimpleAgent < ActiveAgent
     @graph = Graph.new
   end
   
+  def before_revision
+    bb.next_cycle
+  end
+  
   on_percept :lastAction do |action|
     bb.lastAction = action
     say "Last Action: #{bb.lastAction}"

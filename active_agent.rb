@@ -39,12 +39,20 @@ class ActiveAgent
   end
   
   def run
-    sleep if @belief_base.empty?
     while true
+      sleep
+      
+      before_revision if self.respond_to? :before_revision
       revise @adapter.new_percepts( @name )
+      after_revision if self.respond_to? :after_revision
+      
+      before_motivation if self.respond_to? :before_motivation
       motivate
+      after_motivation if self.respond_to? :after_motivation
+      
+      before_deliberation if self.respond_to? :before_deliberation
       deliberate
-      sleep 
+      after_deliberation if self.respond_to? :after_deliberation
     end
   rescue => ex
     puts "#{ex.class} in agent cycle: #{ex.message}\n#{ex.backtrace.inspect}"
@@ -52,7 +60,6 @@ class ActiveAgent
   
   def revise(percepts={})
     return unless percepts.any? and self.class.percept_blocks.any?
-    bb.new_cycle
     
     percepts.each do |percept_string|
       percept_string = percept_string.dup

@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>run.rb</string>
+	<string>saboteur_agent.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
 			<key>filename</key>
 			<string>massim_util.rb</string>
 			<key>lastUsed</key>
-			<date>2011-05-03T10:43:56Z</date>
+			<date>2011-05-03T11:21:48Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -28,19 +28,19 @@
 			<key>filename</key>
 			<string>eismassimconfig.xml</string>
 			<key>lastUsed</key>
-			<date>2011-05-01T14:42:59Z</date>
+			<date>2011-05-03T11:32:08Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>belief_base.rb</string>
 			<key>lastUsed</key>
-			<date>2011-05-02T15:38:00Z</date>
+			<date>2011-05-03T10:56:58Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>motive.rb</string>
 			<key>lastUsed</key>
-			<date>2011-05-01T19:24:33Z</date>
+			<date>2011-05-03T11:02:24Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -52,7 +52,7 @@
 			<key>filename</key>
 			<string>active_agent.rb</string>
 			<key>lastUsed</key>
-			<date>2011-05-03T10:40:14Z</date>
+			<date>2011-05-03T11:12:12Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -67,13 +67,15 @@
 					<key>filename</key>
 					<string>explorer_agent.rb</string>
 					<key>lastUsed</key>
-					<date>2011-05-03T10:40:30Z</date>
+					<date>2011-05-03T12:35:57Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>saboteur_agent.rb</string>
 					<key>lastUsed</key>
-					<date>2011-05-03T10:40:46Z</date>
+					<date>2011-05-03T12:36:00Z</date>
+					<key>selected</key>
+					<true/>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -85,9 +87,7 @@
 			<key>filename</key>
 			<string>run.rb</string>
 			<key>lastUsed</key>
-			<date>2011-05-03T10:43:56Z</date>
-			<key>selected</key>
-			<true/>
+			<date>2011-05-03T12:35:46Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -105,13 +105,13 @@
 			<key>filename</key>
 			<string>simple_agent.rb</string>
 			<key>lastUsed</key>
-			<date>2011-05-03T10:39:29Z</date>
+			<date>2011-05-03T12:35:58Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>percepts.rb</string>
 			<key>lastUsed</key>
-			<date>2011-05-03T10:43:51Z</date>
+			<date>2011-05-03T10:47:09Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -123,7 +123,13 @@
 			<key>filename</key>
 			<string>bkp.rb</string>
 			<key>lastUsed</key>
-			<date>2011-05-03T10:01:32Z</date>
+			<date>2011-05-03T10:46:24Z</date>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>enemy.rb</string>
+			<key>lastUsed</key>
+			<date>2011-05-03T12:36:00Z</date>
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
@@ -135,42 +141,88 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>19</integer>
+				<integer>20</integer>
 				<key>line</key>
-				<integer>70</integer>
+				<integer>79</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>32</integer>
-		</dict>
-		<key>bkp.rb</key>
-		<dict>
-			<key>caret</key>
+			<integer>56</integer>
+			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
-				<integer>3</integer>
+				<integer>16</integer>
 				<key>line</key>
-				<integer>130</integer>
+				<integer>79</integer>
 			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>85</integer>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>20</integer>
+				<key>line</key>
+				<integer>79</integer>
+			</dict>
 		</dict>
-		<key>explorer_agent.rb</key>
+		<key>belief_base.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
 				<integer>2</integer>
 				<key>line</key>
-				<integer>10</integer>
+				<integer>3</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+		</dict>
+		<key>enemy.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>38</integer>
+				<key>line</key>
+				<integer>3</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>explorer_agent.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>28</integer>
+				<key>line</key>
+				<integer>12</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>4</integer>
+				<key>line</key>
+				<integer>12</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>28</integer>
+				<key>line</key>
+				<integer>12</integer>
+			</dict>
 		</dict>
 		<key>graph.rb</key>
 		<dict>
@@ -186,28 +238,28 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>massim_adapter.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>2</integer>
-				<key>line</key>
-				<integer>40</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>21</integer>
-		</dict>
 		<key>massim_util.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>21</integer>
+				<integer>22</integer>
 				<key>line</key>
-				<integer>21</integer>
+				<integer>25</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>motive.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>34</integer>
+				<key>line</key>
+				<integer>11</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -219,9 +271,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>56</integer>
-				<key>line</key>
 				<integer>0</integer>
+				<key>line</key>
+				<integer>2</integer>
 			</dict>
 			<key>columnSelection</key>
 			<false/>
@@ -232,16 +284,16 @@
 			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
-				<integer>54</integer>
+				<integer>34</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>2</integer>
 			</dict>
 			<key>selectTo</key>
 			<dict>
 				<key>column</key>
-				<integer>56</integer>
-				<key>line</key>
 				<integer>0</integer>
+				<key>line</key>
+				<integer>2</integer>
 			</dict>
 		</dict>
 		<key>run.rb</key>
@@ -249,39 +301,23 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>47</integer>
+				<integer>2</integer>
 				<key>line</key>
-				<integer>23</integer>
+				<integer>35</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>35</integer>
-				<key>line</key>
-				<integer>23</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>47</integer>
-				<key>line</key>
-				<integer>23</integer>
-			</dict>
+			<integer>1</integer>
 		</dict>
 		<key>saboteur_agent.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>2</integer>
+				<integer>47</integer>
 				<key>line</key>
-				<integer>4</integer>
+				<integer>18</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -293,44 +329,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>5</integer>
+				<integer>68</integer>
 				<key>line</key>
-				<integer>137</integer>
+				<integer>79</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>92</integer>
-		</dict>
-		<key>test_2.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>2</integer>
-				<key>line</key>
-				<integer>20</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
 			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>23</integer>
-				<key>line</key>
-				<integer>20</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>2</integer>
-				<key>line</key>
-				<integer>20</integer>
-			</dict>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
@@ -340,16 +346,16 @@
 		<string>graph.rb</string>
 		<string>active_agent.rb</string>
 		<string>run.rb</string>
-		<string>bkp.rb</string>
-		<string>test_2.rb</string>
 		<string>explorer_agent.rb</string>
 		<string>simple_agent.rb</string>
 		<string>saboteur_agent.rb</string>
-		<string>massim_adapter.rb</string>
+		<string>enemy.rb</string>
+		<string>motive.rb</string>
+		<string>belief_base.rb</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>
 	<key>windowFrame</key>
-	<string>{{0, 4}, {1280, 774}}</string>
+	<string>{{129, 160}, {1583, 932}}</string>
 </dict>
 </plist>
