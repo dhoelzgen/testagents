@@ -26,7 +26,7 @@ module MassimActions
     Action.new "attack", (Identifier.new target_name)
   end
   
-  def self.inspect(target_name)
-    Action.new "inspect", (Identifier.new target_name)
+  def self.inspect
+    Action.new "inspect"
   end
 end

@@ -16,7 +16,8 @@ class SimpleAgent < ActiveAgent
   
   on_percept :lastAction do |action|
     bb.lastAction = action
-    say "Last Action: #{bb.lastAction}"
+    broadcast
+    say "Last Action: #{bb.lastAction}" if is_perception?
   end
   
   on_percept :lastActionResult do |result|
@@ -68,6 +69,12 @@ class SimpleAgent < ActiveAgent
     else
       @enemies[name] = Enemy.new( name, position, team, status )
     end
+  end
+  
+  on_percept :inspectedEntity do |name, team, role, position, energy, max_energy, health, max_health, strength, vis_range|
+    say "Inspected agent #{name}, E #{energy} / #{max_energy}, H #{health} / #{max_health}"
+    enemy = ( @enemies[name] ||= Enemy.new( name, position, team, (health == 0 ? "disabled" : "normal" ) ) )
+    enemy.set_inspected( role, max_energy, max_health )
   end
   
   # Motives
@@ -156,8 +163,8 @@ class SimpleAgent < ActiveAgent
     act! MassimActions::attack(enemy.name)
   end
   
-  def inspect!(enemy)
-    act! MassimActions::inspect(enemy.name)
+  def inspect!
+    act! MassimActions::inspect
   end
   
 end

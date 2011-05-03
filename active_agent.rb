@@ -1,3 +1,5 @@
+require 'thread'
+
 require 'belief_base'
 require 'motive'
 require 'goal'
@@ -23,6 +25,9 @@ class ActiveAgent
     @belief_base = BeliefBase.new
     @motive_ary = self.class.motive_raw.dup
     
+    @inbox_mutex = Mutex.new
+    @inbox = Array.new
+    
     setup if self.respond_to? :setup
     
     @adapter.open agent_name, agent_name, Thread.new { run }
@@ -43,7 +48,11 @@ class ActiveAgent
       sleep
       
       before_revision if self.respond_to? :before_revision
-      revise @adapter.new_percepts( @name )
+      @inbox_mutex.synchronize do
+        revise @inbox
+        @inbox.clear
+      end
+      revise @adapter.new_percepts( @name ), true
       after_revision if self.respond_to? :after_revision
       
       before_motivation if self.respond_to? :before_motivation
@@ -58,7 +67,9 @@ class ActiveAgent
     puts "#{ex.class} in agent cycle: #{ex.message}\n#{ex.backtrace.inspect}"
   end
   
-  def revise(percepts={})
+  def revise(percepts={}, enable_broadcast=false)
+    @percept_cache = nil
+    
     return unless percepts.any? and self.class.percept_blocks.any?
     
     percepts.each do |percept_string|
@@ -71,6 +82,7 @@ class ActiveAgent
       next unless applicable_blocks.any?
       
       applicable_blocks.each do |name, block|
+        @percept_cache = percept_string if enable_broadcast
         instance_exec( *percept_ary, &block )
       end
     end
@@ -122,6 +134,28 @@ class ActiveAgent
   
   def say(msg)
     puts "#{@name}: #{msg}"
+  end
+  
+  def broadcast(msg=nil)
+    if msg
+      message_to_all(@name, msg)
+    elsif is_perception?
+      message_to_all(@name, @percept_cache)
+    end
+  end
+  
+  def is_perception?
+    @percept_cache != nil
+  end
+  
+  def is_message?
+    !is_perception?
+  end
+  
+  def add_message(msg)
+    @inbox_mutex.synchronize do
+      @inbox << msg
+    end
   end
   
   # Put this into another form, see Eloquent Ruby, p. 345

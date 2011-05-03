@@ -2,7 +2,7 @@ require 'simple_agent'
 require 'enemy'
 
 class SaboteurAgent < SimpleAgent
-  
+    
   motivate :attack do
     next -1 unless bb.position
     candidates = @enemies.values.find_all { |enemy| enemy.position == bb.position && enemy.enabled }

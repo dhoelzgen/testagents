@@ -20,19 +20,24 @@ System.setOut(PrintStream.new(java_out_stream))
 # Note - To change java output do this:
 # puts my_output_stream.toString.gsub("Static", "Dynamic")
 
+def message_to_all(source, msg)
+  receivers = @@agents.find_all { |agent| agent.name != source }
+  receivers.each { |receiver| receiver.add_message msg}
+end
+
 adapter = MassimAdapter.new
 
-agents = Array.new
-agents << (ExplorerAgent.new "a1", "A", adapter) # Explorer
-agents << (ExplorerAgent.new "a2", "A", adapter)
-agents << (SimpleAgent.new "a3", "A", adapter) # Repairer
-agents << (SimpleAgent.new "a4", "A", adapter)
-agents << (SaboteurAgent.new "a5", "A", adapter) # Saboteur
-agents << (SaboteurAgent.new "a6", "A", adapter)
-agents << (SimpleAgent.new "a7", "A", adapter) # Sentinel
-agents << (SimpleAgent.new "a8", "A", adapter)
-agents << (InspectorAgent.new "a9", "A", adapter) # Inspector
-agents << (InspectorAgent.new "a10", "A", adapter)
+@@agents = Array.new
+@@agents << (ExplorerAgent.new "a1", "A", adapter) # Explorer
+@@agents << (ExplorerAgent.new "a2", "A", adapter)
+@@agents << (SimpleAgent.new "a3", "A", adapter) # Repairer
+@@agents << (SimpleAgent.new "a4", "A", adapter)
+@@agents << (SaboteurAgent.new "a5", "A", adapter) # Saboteur
+@@agents << (SaboteurAgent.new "a6", "A", adapter)
+@@agents << (SimpleAgent.new "a7", "A", adapter) # Sentinel
+@@agents << (SimpleAgent.new "a8", "A", adapter)
+@@agents << (InspectorAgent.new "a9", "A", adapter) # Inspector
+@@agents << (InspectorAgent.new "a10", "A", adapter)
 
 # agents << (ExplorerAgent.new "b1", "B", adapter) # Explorer
 # agents << (ExplorerAgent.new "b2", "B", adapter)
