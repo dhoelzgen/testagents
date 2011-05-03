@@ -8,19 +8,15 @@ class ActiveAgent
   attr_accessor :belief_base
   alias_method :bb, :belief_base
   
-  @percept_blocks = Hash.new
-  @motive_raw = Array.new
-  @goal_ary = Array.new
-  
-  def self.percept_blocks; @percept_blocks; end
-  def self.motive_raw; @motive_raw; end
-  def self.goal_ary; @goal_ary; end
+  @@percept_blocks = Hash.new
+  @@motive_raw = Array.new
+  @@goal_ary = Array.new
   
   def initialize(agent_name, adapter)
     @name = agent_name
     @adapter = adapter
     @belief_base = BeliefBase.new
-    @motive_ary = self.class.motive_raw.dup
+    @motive_ary = @@motive_raw.dup
     
     setup if self.respond_to? :setup
     
@@ -28,13 +24,17 @@ class ActiveAgent
   end
   
   def self.inherited(subclass)
-    subclass.init_vars(@percept_blocks.dup, @motive_raw.dup, @goal_ary.dup)
-  end
-  
-  def self.init_vars(percept_blocks, motive_raw, goal_ary)
-    @percept_blocks = percept_blocks
-    @motive_raw = motive_raw
-    @goal_ary = goal_ary
+    subclass.instance_eval do
+      percept_dup = @@percept_blocks.dup
+      @@percept_blocks = 
+      @@motive_raw = @@motive_raw.dup
+      @@goal_ary = @@goal_ary.dup
+            
+      def initialize(agent_name, adapter)
+        
+        super
+      end
+    end
   end
   
   def run
@@ -50,14 +50,14 @@ class ActiveAgent
   end
   
   def revise(percepts={})
-    return unless percepts.any? and self.class.percept_blocks.any?
+    return unless percepts.any? and @@percept_blocks.any?
     
     percepts.each do |percept_string|
       percept_string = percept_string.dup
       percept_ary = "#{percept_string}".scan(/[A-Za-z0-9]+/) 
       percept_name = percept_ary.slice!(0)
             
-      applicable_blocks = self.class.percept_blocks.find_all { |name, block| name.to_s == percept_name }
+      applicable_blocks = @@percept_blocks.find_all { |name, block| name.to_s == percept_name }
       
       next unless applicable_blocks.any?
       
@@ -82,7 +82,7 @@ class ActiveAgent
     return unless @motive_ary.any?
     
     goal_name = @motive_ary.last.name
-    candidate_goals = self.class.goal_ary.find_all { |goal| goal.name == goal_name }
+    candidate_goals = @@goal_ary.find_all { |goal| goal.name == goal_name }
     
     unless candidate_goals.any?
       say "No candidate goal for #{goal_name}"
@@ -117,15 +117,15 @@ class ActiveAgent
   
   # Put this into another form, see Eloquent Ruby, p. 345
   def self.on_percept(percept,  &block)
-    @percept_blocks[percept] = block
+    @@percept_blocks[percept] = block
   end
   
   def self.motivate(name, &block)
-    @motive_raw << Motive.new(name, block)
+    @@motive_raw << Motive.new(name, block)
   end
   
   def self.on_goal(name, args={}, &block)
-    @goal_ary << Goal.new(name, args, block)
+    @@goal_ary << Goal.new(name, args, block)
   end
 
 end

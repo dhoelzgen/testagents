@@ -16,7 +16,7 @@ class MassimAdapter
     @cached_percepts = Hash.new
     puts "MassimAdapter initialized."
   rescue => ex
-    puts "#{ex.class}: #{ex.message}"
+    puts "(ADAPTER) #{ex.class}: #{ex.message}"
   end
   
   def open(agent_name, connection_name, agent_thread)
@@ -26,13 +26,13 @@ class MassimAdapter
     
     @attached_agents[agent_name] = agent_thread
   rescue => ex
-    puts "#{ex.class}: #{ex.message}"
+    puts "(ADAPTER) #{ex.class}: #{ex.message}"
   end
   
   def close(agent_name)
     @environment_interface.unregisterAgent agentName
   rescue => ex
-    puts "#{ex.class}: #{ex.message}"
+    puts "(ADAPTER) #{ex.class}: #{ex.message}"
   end
   
   def handlePercept(agent_name, percept)
@@ -54,13 +54,13 @@ class MassimAdapter
   def act!(agent_name, action)
     @environment_interface.performAction agent_name, action
   rescue => ex
-    puts "#{ex.class}: #{ex.message}"
+    puts "(ADAPTER) #{ex.class}: #{ex.message}"
   end
   
   def start
     @environment_interface.start
   rescue => ex
-    puts "#{ex.class}: #{ex.message}"
+    puts "(ADAPTER) #{ex.class}: #{ex.message}"
   end
   
 end

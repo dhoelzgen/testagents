@@ -3,6 +3,8 @@ include Java
 require 'initialize'
 
 require 'simple_agent'
+require 'explorer_agent'
+
 require 'massim_adapter'
 
 # Redirect java output stream
@@ -19,15 +21,15 @@ System.setOut(PrintStream.new(java_out_stream))
 adapter = MassimAdapter.new
 
 agents = Array.new
-agents << (SimpleAgent.new "a1", adapter)
-agents << (SimpleAgent.new "a2", adapter)
-agents << (SimpleAgent.new "a3", adapter)
-agents << (SimpleAgent.new "a4", adapter)
-agents << (SimpleAgent.new "a5", adapter)
-agents << (SimpleAgent.new "a6", adapter)
-agents << (SimpleAgent.new "a7", adapter)
-agents << (SimpleAgent.new "a8", adapter)
-agents << (SimpleAgent.new "a9", adapter)
-agents << (SimpleAgent.new "a10", adapter)
+agents << (ExplorerAgent.new "a1", adapter) # Explorer
+agents << (ExplorerAgent.new "a2", adapter)
+# agents << (SimpleAgent.new "a3", adapter) # Repairer
+# agents << (SimpleAgent.new "a4", adapter)
+# agents << (SimpleAgent.new "a5", adapter) # Saboteur
+# agents << (SimpleAgent.new "a6", adapter)
+# agents << (SimpleAgent.new "a7", adapter) # Sentinel
+# agents << (SimpleAgent.new "a8", adapter)
+# agents << (SimpleAgent.new "a9", adapter) # Inspector
+# agents << (SimpleAgent.new "a10", adapter)
 
 adapter.start

@@ -41,7 +41,15 @@ class SimpleAgent < ActiveAgent
   end
   
   on_percept :visibleEdge do |vertex_a, vertex_b|
-    @graph.add_edge(vertex_a, vertex_b)
+    @graph.add_edge vertex_a, vertex_b
+  end
+  
+  on_percept :probedVertex do |vertex, value|
+    @graph.probed_vertex vertex, value
+  end
+  
+  on_percept :surveyedEdge do |from, to, value|
+    @graph.surveyed_edge from, to, value
   end
   
   # Motives
@@ -58,25 +66,49 @@ class SimpleAgent < ActiveAgent
     11
   end
   
+  motivate :survey do
+    next -1 unless @graph[bb.position]
+    if @graph[bb.position].edges.inject(false) { |mem, edge| edge.weight.nil? ? true : false }
+      next 50
+    end
+    next 0
+  end
+  
   # Plans
   
   on_goal :randomWalk do
+    next unless @graph[bb.position]
     edge = @graph[bb.position].random_edge # TODO: Select only edges with weight lower than maxEnergy
     next unless edge
     
     say "Going to node #{edge.target.name}"
-    
-    if edge.weight && edge.weight > edge.energy
-      say "Not enough energy, recharging first..."
-      recharge!
-      next
-    end
+    next unless has_energy edge.weight
     
     goto! edge.target
   end
   
   on_goal :recharge do
     recharge!
+  end
+  
+  on_goal :survey do
+    next unless has_energy 1
+    survey!
+  end
+  
+  # Util
+  
+  def has_energy(value)
+    return true unless value
+    return true unless bb.energy
+
+    if bb.energy < value
+      say "Not enough energy, recharging first..."
+      recharge!
+      return false
+    end
+    
+    true
   end
   
   # Actions
@@ -87,6 +119,14 @@ class SimpleAgent < ActiveAgent
   
   def goto!(vertex)
     act! MassimActions::goto(vertex.name)
+  end
+  
+  def survey!
+    act! MassimActions::survey
+  end
+  
+  def probe!
+    act! MassimActions::probe
   end
   
 end

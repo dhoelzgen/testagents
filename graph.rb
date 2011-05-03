@@ -11,6 +11,20 @@ class Graph
     
     vertex_from.add_edge(vertex_to)
     vertex_to.add_edge(vertex_from)
+    
+    return vertex_from, vertex_to
+  end
+  
+  def surveyed_edge(from, to, value)
+    vertex_from, vertex_to = add_edge(from, to)
+    
+    vertex_from[vertex_to].weight = value.to_i
+    vertex_to[vertex_from].weight = value.to_i
+  end
+  
+  def probed_vertex(name, value)
+    vertex = ( @vertices[name] ||= Vertex.new(name) )
+    vertex.value= value.to_i
   end
   
   def [](name)
@@ -28,7 +42,7 @@ class Edge
 end
 
 class Vertex
-  attr_accessor :name, :edges
+  attr_accessor :name, :edges, :value
   
   def initialize(name)
     @name = name
@@ -43,6 +57,13 @@ class Vertex
   
   def random_edge
     @edges[rand( @edges.size )]
+  end
+  
+  def [](vertex)
+    @edges.each do |edge|
+      return edge if edge.target == vertex
+    end
+    nil
   end
   
   

@@ -14,4 +14,12 @@ module MassimActions
     Action.new "recharge"
   end
   
+  def self.survey
+    Action.new "survey"
+  end
+  
+  def self.probe
+    Action.new "probe"
+  end
+  
 end
