@@ -3,24 +3,10 @@ require 'enemy'
 
 class SaboteurAgent < SimpleAgent
   
-  # visibleEntity(a2,vertex4,A,normal)
-  on_percept :visibleEntity do |name, position, team, status|
-    # TODO: Move this to SimpleAgent
-    # TODO: Should add agents to the graph (with timestamp, and remove old position)
-    # TODO: Update this information by inspector
-    next if team == @team
-    
-    bb.transient[:attack] ||= Array.new
-    bb.transient[:attack] << Enemy.new( name, position, team, status )
-  end
-  
   motivate :attack do
-    next -1 unless candidates = bb.transient[:attack]
-    
-    candidates.sort!
-    target = candidates.find do |candidate|
-      ( candidate.position == bb.position &&  !candidate.disabled )
-    end
+    next -1 unless bb.position
+    candidates = @enemies.values.find_all { |enemy| enemy.position == bb.position && enemy.enabled }
+    target = candidates.sort.last
     
     if bb.transient[:attack_target] = target
       80

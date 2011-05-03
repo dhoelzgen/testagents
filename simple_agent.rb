@@ -7,6 +7,7 @@ class SimpleAgent < ActiveAgent
   def setup
     puts "Init SimpleAgent"
     @graph = Graph.new
+    @enemies = Hash.new
   end
   
   def before_revision
@@ -54,6 +55,19 @@ class SimpleAgent < ActiveAgent
   
   on_percept :surveyedEdge do |from, to, value|
     @graph.surveyed_edge from, to, value
+  end
+  
+  on_percept :visibleEntity do |name, position, team, status|
+    # TODO: Should add agents to the graph (with timestamp, and remove old position)
+    # TODO: Update this information by inspector
+    next if team == @team
+    
+    if enemy = @enemies[name]
+      enemy.position = position
+      enemy.status = status
+    else
+      @enemies[name] = Enemy.new( name, position, team, status )
+    end
   end
   
   # Motives
@@ -140,6 +154,10 @@ class SimpleAgent < ActiveAgent
   
   def attack!(enemy)
     act! MassimActions::attack(enemy.name)
+  end
+  
+  def inspect!(enemy)
+    act! MassimActions::inspect(enemy.name)
   end
   
 end

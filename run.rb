@@ -5,6 +5,7 @@ require 'initialize'
 require 'simple_agent'
 require 'explorer_agent'
 require 'saboteur_agent'
+require 'inspector_agent'
 
 require 'massim_adapter'
 
@@ -30,8 +31,8 @@ agents << (SaboteurAgent.new "a5", "A", adapter) # Saboteur
 agents << (SaboteurAgent.new "a6", "A", adapter)
 agents << (SimpleAgent.new "a7", "A", adapter) # Sentinel
 agents << (SimpleAgent.new "a8", "A", adapter)
-agents << (SimpleAgent.new "a9", "A", adapter) # Inspector
-agents << (SimpleAgent.new "a10", "A", adapter)
+agents << (InspectorAgent.new "a9", "A", adapter) # Inspector
+agents << (InspectorAgent.new "a10", "A", adapter)
 
 # agents << (ExplorerAgent.new "b1", "B", adapter) # Explorer
 # agents << (ExplorerAgent.new "b2", "B", adapter)
