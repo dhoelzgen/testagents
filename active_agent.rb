@@ -18,10 +18,9 @@ class ActiveAgent
   def self.motive_raw; @motive_raw; end
   def self.goal_ary; @goal_ary; end
   
-  def initialize(agent_name, team, adapter)
+  def initialize(agent_name, team)
     @name = agent_name
     @team = team
-    @adapter = adapter
     @belief_base = BeliefBase.new
     @motive_ary = self.class.motive_raw.dup
     
@@ -29,8 +28,12 @@ class ActiveAgent
     @inbox = Array.new
     
     setup if self.respond_to? :setup
-    
-    @adapter.open agent_name, agent_name, Thread.new { run }
+  end
+  
+  def set_environment(adapter, messenger)
+    @adapter = adapter
+    @messenger = messenger
+    @adapter.open @name, Thread.new { run }
   end
   
   def self.inherited(subclass)
@@ -142,9 +145,9 @@ class ActiveAgent
   
   def broadcast(msg=nil)
     if msg
-      message_to_all(@name, msg)
+      @messenger.message_to_all(@name, msg)
     elsif is_perception?
-      message_to_all(@name, @percept_cache)
+      @messenger.message_to_all(@name, @percept_cache)
     end
   end
   

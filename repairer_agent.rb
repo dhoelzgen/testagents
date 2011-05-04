@@ -15,7 +15,13 @@ class RepairerAgent < SimpleAgent
   
   on_goal :repair do
     say "Repairing #{bb.transient[:repair_target].name}"
-    next skip! unless has_energy 2
+    
+    if bb.disabled
+      next skip! unless has_energy 3
+    else
+      next skip! unless has_energy 2
+    end
+    
     repair! bb.transient[:repair_target]
   end
   

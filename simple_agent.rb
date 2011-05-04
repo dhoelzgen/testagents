@@ -52,6 +52,10 @@ class SimpleAgent < ActiveAgent
     end
   end
   
+  on_percept :zoneScore do |score|
+    bb.zoneScore = score.to_i
+  end
+  
   on_percept :maxHealth do |value|
     bb.maxHealth = value.to_i
   end
@@ -124,10 +128,13 @@ class SimpleAgent < ActiveAgent
   end
   
   motivate :randomWalk do
+    # TODO: Intensity should depend on current zone score
+    #       If score is high, then the agent should tend to stay at its current place
     11
   end
   
   motivate :survey do
+    next -1 if bb.disabled
     next -1 unless @graph[bb.position]
     if @graph[bb.position].edges.inject(false) { |mem, edge| edge.weight.nil? ? true : false }
       next 50
@@ -147,6 +154,11 @@ class SimpleAgent < ActiveAgent
     # TODO: Tend to walk towards nodes without other agents friendly (near it)
     # TODO: Tend to walk towards nodes with high value
     # TODO: Tend to stay if this is a good position
+    # IN PROGRESS: Test for Team A
+    if bb.zoneScore && @team == "A" 
+      next skip! if rand(bb.zoneScore) > 25
+    end
+    
     # TODO: Tend to avoid nodes with enabled emeny agents (let attackers do this)
     
     next skip! unless @graph[bb.position]

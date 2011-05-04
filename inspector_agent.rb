@@ -3,6 +3,7 @@ require 'simple_agent'
 class InspectorAgent < SimpleAgent
     
   motivate :inspect do
+    next -1 if bb.disabled
     next -1 unless bb.position
     candidates = @enemies.values.find_all { |enemy| enemy.position == bb.position && !enemy.inspected? }
           

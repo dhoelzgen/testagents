@@ -19,9 +19,9 @@ class MassimAdapter
     puts "(ADAPTER) #{ex.class}: #{ex.message}"
   end
   
-  def open(agent_name, connection_name, agent_thread)
+  def open(agent_name, agent_thread)
     @environment_interface.registerAgent agent_name
-    @environment_interface.associateEntity agent_name, connection_name
+    @environment_interface.associateEntity agent_name, agent_name
     @environment_interface.attachAgentListener agent_name, self
     
     @attached_agents[agent_name] = agent_thread
