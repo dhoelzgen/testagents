@@ -1,5 +1,4 @@
 require 'simple_agent'
-require 'enemy'
 
 class SaboteurAgent < SimpleAgent
     
@@ -17,7 +16,7 @@ class SaboteurAgent < SimpleAgent
   
   on_goal :attack do
     say "Attacking #{bb.transient[:attack_target].name}"
-    next unless has_energy 2
+    next skip! unless has_energy 2
     attack! bb.transient[:attack_target]
   end
 end

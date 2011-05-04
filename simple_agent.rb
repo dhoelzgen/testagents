@@ -1,12 +1,15 @@
 require 'active_agent'
 require 'massim_util'
 require 'graph'
+require 'enemy'
+require 'friend'
 
 class SimpleAgent < ActiveAgent
   
   def setup
     puts "Init SimpleAgent"
     @graph = Graph.new
+    @friends = Hash.new
     @enemies = Hash.new
   end
   
@@ -16,8 +19,7 @@ class SimpleAgent < ActiveAgent
   
   on_percept :lastAction do |action|
     bb.lastAction = action
-    broadcast
-    say "Last Action: #{bb.lastAction}" if is_perception?
+    say "Last Action: #{bb.lastAction}"
   end
   
   on_percept :lastActionResult do |result|
@@ -26,12 +28,32 @@ class SimpleAgent < ActiveAgent
   end
   
   on_percept :health do |value|
-    bb.health = value
+    bb.health = value.to_i
     bb.disabled = ( bb.health == 0 ? true : false )
+    
+    next unless bb.maxHealth
+    
+    if agent = @friends[@name]
+      agent.health = value.to_i
+      agent.max_health = bb.maxHealth
+    else
+      @friends[@name] = Friend.new( @name, value.to_i, bb.maxHealth )
+    end
+    
+    broadcast "friendHealth(#{@name}, #{value}, #{bb.maxHealth})"
+  end
+  
+  on_percept :friendHealth do |name, value, max_value|
+    if agent = @friends[name]
+      agent.health = value.to_i
+      agent.max_health = max_value.to_i
+    else
+      @friends[name] = Friend.new( name, value.to_i, max_value.to_i )
+    end
   end
   
   on_percept :maxHealth do |value|
-    bb.maxHealth = value
+    bb.maxHealth = value.to_i
   end
   
   on_percept :energy do |value|
@@ -44,6 +66,18 @@ class SimpleAgent < ActiveAgent
   
   on_percept :position do |position|
     bb.position = position
+    
+    if friend = @friends[@name]
+      friend.position = position
+    end
+    
+    broadcast "friendPosition(#{@name}, #{position})"
+  end
+  
+  on_percept :friendPosition do |name, position|
+    if friend = @friends[name]
+      friend.position = position
+    end
   end
   
   on_percept :visibleEdge do |vertex_a, vertex_b|
@@ -59,9 +93,8 @@ class SimpleAgent < ActiveAgent
   end
   
   on_percept :visibleEntity do |name, position, team, status|
-    # TODO: Should add agents to the graph (with timestamp, and remove old position)
-    # TODO: Update this information by inspector
     next if team == @team
+    broadcast
     
     if enemy = @enemies[name]
       enemy.position = position
@@ -72,7 +105,10 @@ class SimpleAgent < ActiveAgent
   end
   
   on_percept :inspectedEntity do |name, team, role, position, energy, max_energy, health, max_health, strength, vis_range|
-    say "Inspected agent #{name}, E #{energy} / #{max_energy}, H #{health} / #{max_health}"
+    next if team == @team
+    
+    broadcast
+    say "Inspected agent #{name}, E #{energy} / #{max_energy}, H #{health} / #{max_health}" if is_percept?
     enemy = ( @enemies[name] ||= Enemy.new( name, position, team, (health == 0 ? "disabled" : "normal" ) ) )
     enemy.set_inspected( role, max_energy, max_health )
   end
@@ -99,6 +135,12 @@ class SimpleAgent < ActiveAgent
     next 0
   end
   
+  motivate :getRepaired do
+    # TODO: Evaluate what a Repairer Agent should do
+    next 100 if ( bb.health == 0 && !( self.is_a? RepairerAgent ) )
+    -1
+  end
+  
   # Plans
   
   on_goal :randomWalk do
@@ -107,14 +149,19 @@ class SimpleAgent < ActiveAgent
     # TODO: Tend to stay if this is a good position
     # TODO: Tend to avoid nodes with enabled emeny agents (let attackers do this)
     
-    next unless @graph[bb.position]
+    next skip! unless @graph[bb.position]
     edge = @graph[bb.position].random_edge # TODO: Select only edges with weight lower than maxEnergy
-    next unless edge
+    next skip! unless edge
     
     say "Going to node #{edge.target.name}"
-    next unless has_energy edge.weight
+    next skip! unless has_energy edge.weight
     
     goto! edge.target
+  end
+  
+  on_goal :getRepaired do
+    # TODO: Move towards Repairer Agent
+    skip!
   end
   
   on_goal :recharge do
@@ -165,6 +212,14 @@ class SimpleAgent < ActiveAgent
   
   def inspect!
     act! MassimActions::inspect
+  end
+  
+  def repair!(friend)
+    act! MassimActions::repair(friend.name)
+  end
+  
+  def skip!
+    act! MassimActions::skip
   end
   
 end

@@ -29,4 +29,12 @@ module MassimActions
   def self.inspect
     Action.new "inspect"
   end
+  
+  def self.repair(target_name)
+    Action.new "repair", (Identifier.new target_name)
+  end
+  
+  def self.skip
+    Action.new "skip"
+  end
 end

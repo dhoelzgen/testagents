@@ -47,6 +47,9 @@ class ActiveAgent
     while true
       sleep
       
+      # TODO: Filter addition should be done by keyword with an array of filters
+      #       Desired form before_revision :filter_name
+      #       or before_revision :filter_one, :filter_two
       before_revision if self.respond_to? :before_revision
       @inbox_mutex.synchronize do
         revise @inbox
@@ -64,7 +67,8 @@ class ActiveAgent
       after_deliberation if self.respond_to? :after_deliberation
     end
   rescue => ex
-    puts "#{ex.class} in agent cycle: #{ex.message}\n#{ex.backtrace.inspect}"
+    puts "#{ex.class} in agent cycle: #{ex.message}\n#{ex.backtrace.inspect}."
+    retry
   end
   
   def revise(percepts={}, enable_broadcast=false)
@@ -147,6 +151,8 @@ class ActiveAgent
   def is_perception?
     @percept_cache != nil
   end
+  
+  alias_method :is_percept?, :is_perception?
   
   def is_message?
     !is_perception?
