@@ -1,4 +1,6 @@
 class Graph
+  INFINITY = 1 << 64
+  
   attr_reader :vertices
   
   def initialize
@@ -30,6 +32,32 @@ class Graph
   def [](name)
     @vertices[name]
   end
+  
+  # Pathfinding
+  
+  def path(args={})
+    raise "Missing origin" unless from = @vertices[args[:from]]
+    raise "Missing destination" unless to = @vertices[args[:to]]
+    
+    init_markers(from)
+    path_search from, to
+  end
+  
+  protected
+    
+    def init_markers(from)
+      @vertices.values.each { |vertex| vertex.marked = (vertex == from ? true : false ) }
+    end
+    
+    def path_search(position, to)
+      return nil if position == to
+      position.edges.min_by do |e|
+        next INFINITY if e.target.marked?
+        candidate = path_search(e.target, to)
+        e.weight + (candidate.nil? ? 0 : candidate.weight)
+      end
+    end
+    
 end
 
 class Edge
@@ -38,14 +66,16 @@ class Edge
   def initialize(source, target)
     @source = source
     @target = target
+    @weight = 1
   end
 end
 
 class Vertex
-  attr_accessor :name, :edges, :value
+  attr_accessor :name, :edges, :value, :marked
   
   def initialize(name)
     @name = name
+    @marked = false
     @edges = Array.new
   end
   
@@ -66,5 +96,8 @@ class Vertex
     nil
   end
   
+  def ==(other)
+    return @name == other.name
+  end
   
 end
