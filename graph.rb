@@ -43,6 +43,14 @@ class Graph
     path_search from, to
   end
   
+  def distance(args={})
+    raise "Missing origin" unless from = @vertices[args[:from]]
+    raise "Missing destination" unless to = @vertices[args[:to]]
+    
+    init_markers(from)
+    path_distance from, to
+  end
+  
   protected
     
     def init_markers(from)
@@ -50,12 +58,27 @@ class Graph
     end
     
     def path_search(position, to)
+      position.mark!
       return nil if position == to
       position.edges.min_by do |e|
         next INFINITY if e.target.marked?
         candidate = path_search(e.target, to)
         e.weight + (candidate.nil? ? 0 : candidate.weight)
       end
+    end
+    
+    def path_distance(position, to)
+      position.mark!
+      return 0 if position == to
+      result = INFINITY
+      position.edges.each do |e|
+        next if e.target.marked?
+        candidate = path_distance(e.target, to) + e.weight
+        if result > candidate then
+          result = candidate
+        end
+      end
+      return result
     end
     
 end
@@ -83,6 +106,10 @@ class Vertex
     if @edges.inject(true) { |mem, edge| next false if edge.target == target; mem }
       @edges << Edge.new( self, target )
     end
+  end
+  
+  def mark!
+    @marked = true
   end
   
   def random_edge
