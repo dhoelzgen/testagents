@@ -10,7 +10,7 @@ class ExplorerAgent < SimpleAgent
   end
   
   on_goal :probe do
-    next skip! unless has_energy 1
+    next recharge! unless has_energy 1
     probe!
   end
   

@@ -16,7 +16,7 @@ class InspectorAgent < SimpleAgent
 
   on_goal :inspect do
     say "Inspecting..."
-    next skip! unless has_energy 2
+    next recharge! unless has_energy 2
     inspect!
   end
   

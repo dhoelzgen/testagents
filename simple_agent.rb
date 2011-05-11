@@ -144,7 +144,7 @@ class SimpleAgent < ActiveAgent
   
   motivate :getRepaired do
     # TODO: Evaluate what a Repairer Agent should do
-    next 100 if ( bb.health == 0 && !( self.is_a? RepairerAgent ) )
+    next 100 if bb.health == 0 && !( self.is_a? RepairerAgent )
     -1
   end
   
@@ -166,14 +166,14 @@ class SimpleAgent < ActiveAgent
     next skip! unless edge
     
     say "Going to node #{edge.target.name}"
-    next skip! unless has_energy edge.weight
+    next recharge! unless has_energy edge.weight
     
     goto! edge.target
   end
   
   on_goal :getRepaired do
     # TODO: Move towards Repairer Agent
-    skip!
+    recharge!
   end
   
   on_goal :recharge do
@@ -193,7 +193,6 @@ class SimpleAgent < ActiveAgent
 
     if bb.energy < value
       say "Not enough energy, recharging first..."
-      recharge!
       return false
     end
     

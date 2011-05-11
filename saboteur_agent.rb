@@ -17,7 +17,7 @@ class SaboteurAgent < SimpleAgent
   
   on_goal :attack do
     say "Attacking #{bb.transient[:attack_target].name}"
-    next skip! unless has_energy 2
+    next recharge! unless has_energy 2
     attack! bb.transient[:attack_target]
   end
 end
