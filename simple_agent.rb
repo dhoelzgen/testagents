@@ -66,6 +66,7 @@ class SimpleAgent < ActiveAgent
   
   on_percept :maxEnergy do |value|
     bb.maxEnergy = value.to_i
+    @graph.max_energy = value.to_i
   end
   
   on_percept :position do |position|
@@ -75,25 +76,32 @@ class SimpleAgent < ActiveAgent
       friend.position = position
     end
     
-    broadcast "friendPosition(#{@name}, #{position})"
+    broadcast "friendPosition(#{@name}, #{position}, #{bb.role})"
   end
   
-  on_percept :friendPosition do |name, position|
+  on_percept :friendPosition do |name, position, role|
     if friend = @friends[name]
       friend.position = position
+      friend.role = role
     end
   end
   
   on_percept :visibleEdge do |vertex_a, vertex_b|
+    # TODO: Add edge and broadcast only if this is a new information
     @graph.add_edge vertex_a, vertex_b
+    broadcast
   end
   
   on_percept :probedVertex do |vertex, value|
+    # TODO: Add edge and broadcast only if this is a new information
     @graph.probed_vertex vertex, value
+    broadcast
   end
   
   on_percept :surveyedEdge do |from, to, value|
+    # TODO: Add edge and broadcast only if this is a new information
     @graph.surveyed_edge from, to, value
+    broadcast
   end
   
   on_percept :visibleEntity do |name, position, team, status|
@@ -136,34 +144,33 @@ class SimpleAgent < ActiveAgent
   motivate :survey do
     next -1 if bb.disabled
     next -1 unless @graph[bb.position]
-    if @graph[bb.position].edges.inject(false) { |mem, edge| edge.weight.nil? ? true : false }
-      next 50
+    if @graph[bb.position].edges.inject(false) { |mem, edge| edge.unknown_weight? ? true : false }
+      next 90
     end
     next 0
   end
   
   motivate :getRepaired do
     # TODO: Evaluate what a Repairer Agent should do
-    next 100 if bb.health == 0 && !( self.is_a? RepairerAgent )
+    next 95 if bb.health == 0 # && !( self.is_a? RepairerAgent )
     -1
   end
   
   # Plans
   
   on_goal :randomWalk do
-    # TODO: Tend to walk towards nodes without other agents friendly (near it)
+    # TODO: Tend to walk towards nodes without other friendly agents (near it)
     # TODO: Tend to walk towards nodes with high value
     # TODO: Tend to stay if this is a good position
-    # IN PROGRESS: Test for Team A
-    if bb.zoneScore && @team == "A" 
-      next skip! if rand(bb.zoneScore) > 25
+    if bb.zoneScore 
+      next recharge! if rand(bb.zoneScore) > 25
     end
     
     # TODO: Tend to avoid nodes with enabled emeny agents (let attackers do this)
     
-    next skip! unless @graph[bb.position]
+    next recharge! unless @graph[bb.position]
     edge = @graph[bb.position].random_edge # TODO: Select only edges with weight lower than maxEnergy
-    next skip! unless edge
+    next recharge! unless edge
     
     say "Going to node #{edge.target.name}"
     next recharge! unless has_energy edge.weight
@@ -172,8 +179,17 @@ class SimpleAgent < ActiveAgent
   end
   
   on_goal :getRepaired do
-    # TODO: Move towards Repairer Agent
-    recharge!
+    repairer = @friends.values.find_all { |friend| friend.role == "Repairer" && friend.name != @name }
+    selected = repairer.sort_by { |candidate| @graph.distance :from => bb.position, :to => candidate.position }.first
+    
+    next recharge! unless selected
+    
+    edge = @graph.path :from => bb.position, :to => selected.position
+    
+    next recharge! if edge.nil?
+    next recharge! unless has_energy edge.weight
+    
+    goto! edge.target
   end
   
   on_goal :recharge do
@@ -181,7 +197,7 @@ class SimpleAgent < ActiveAgent
   end
   
   on_goal :survey do
-    next unless has_energy 1
+    next recharge! unless has_energy 1
     survey!
   end
   

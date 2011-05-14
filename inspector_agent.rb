@@ -1,7 +1,12 @@
 require 'simple_agent'
 
 class InspectorAgent < SimpleAgent
-    
+  
+  def setup
+    super
+    bb.role = "Inspector"
+  end
+  
   motivate :inspect do
     next -1 if bb.disabled
     next -1 unless bb.position

@@ -1,10 +1,10 @@
 class Graph
-  INFINITY = 1 << 64
-  
   attr_reader :vertices
+  attr_accessor :max_energy
   
   def initialize
     @vertices = Hash.new
+    @max_energy = INFINITY
   end
   
   def add_edge(name_from, name_to)
@@ -62,8 +62,9 @@ class Graph
       return nil if position == to
       position.edges.min_by do |e|
         next INFINITY if e.target.marked?
+        next INFINITY if e.weight > @max_energy
         candidate = path_search(e.target, to)
-        e.weight + (candidate.nil? ? 0 : candidate.weight)
+        e.weight + ( candidate.nil? ? 0 : candidate.weight )
       end
     end
     
@@ -73,6 +74,7 @@ class Graph
       result = INFINITY
       position.edges.each do |e|
         next if e.target.marked?
+        next if e.weight > @max_energy
         candidate = path_distance(e.target, to) + e.weight
         if result > candidate then
           result = candidate
@@ -84,13 +86,23 @@ class Graph
 end
 
 class Edge
-  attr_accessor :source, :target, :weight
+  attr_accessor :source, :target
+  attr_writer :weight
   
   def initialize(source, target)
     @source = source
     @target = target
-    @weight = 1
   end
+  
+  def weight
+    return UNKNOWN_WEIGHT unless @weight
+    @weight
+  end
+  
+  def unknown_weight?
+    return @weight.nil?
+  end
+
 end
 
 class Vertex
@@ -110,6 +122,10 @@ class Vertex
   
   def mark!
     @marked = true
+  end
+  
+  def marked?
+    @marked
   end
   
   def random_edge

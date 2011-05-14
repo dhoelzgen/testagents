@@ -54,11 +54,11 @@ class ActiveAgent
       #       Desired form before_revision :filter_name
       #       or before_revision :filter_one, :filter_two
       before_revision if self.respond_to? :before_revision
+      revise @adapter.new_percepts( @name ), true
       @inbox_mutex.synchronize do
         revise @inbox
         @inbox.clear
       end
-      revise @adapter.new_percepts( @name ), true
       after_revision if self.respond_to? :after_revision
       
       before_motivation if self.respond_to? :before_motivation

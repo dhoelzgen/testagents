@@ -2,6 +2,11 @@ require 'simple_agent'
 
 class ExplorerAgent < SimpleAgent
   
+  def setup
+    super
+    bb.role = "Explorer"
+  end
+  
   motivate :probe do
     next -1 if bb.disabled
     next -1 unless current_node = @graph[bb.position]

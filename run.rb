@@ -8,6 +8,7 @@ require 'explorer_agent'
 require 'saboteur_agent'
 require 'inspector_agent'
 require 'repairer_agent'
+require 'sentinel_agent'
 
 require 'massim_adapter'
 
@@ -31,8 +32,8 @@ team_a = Team.new environment do |team|
   team.agent RepairerAgent.new "a4", "A"
   team.agent SaboteurAgent.new "a5", "A" # Saboteur
   team.agent SaboteurAgent.new "a6", "A"
-  team.agent SimpleAgent.new "a7", "A" # Sentinel
-  team.agent SimpleAgent.new "a8", "A"
+  team.agent SentinelAgent.new "a7", "A" # Sentinel
+  team.agent SentinelAgent.new "a8", "A"
   team.agent InspectorAgent.new "a9", "A" # Inspector
   team.agent InspectorAgent.new "a10", "A"
 end
@@ -45,8 +46,8 @@ team_b = Team.new environment do |team|
   team.agent RepairerAgent.new "b4", "B"
   team.agent SaboteurAgent.new "b5", "B" # Saboteur
   team.agent SaboteurAgent.new "b6", "B"
-  team.agent SimpleAgent.new "b7", "B" # Sentinel
-  team.agent SimpleAgent.new "b8", "B"
+  team.agent SentinelAgent.new "b7", "B" # Sentinel
+  team.agent SentinelAgent.new "b8", "B"
   team.agent InspectorAgent.new "b9", "B" # Inspector
   team.agent InspectorAgent.new "b10", "B"
 end

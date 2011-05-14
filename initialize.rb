@@ -1,3 +1,7 @@
+# Constants
+INFINITY = 1 << 64
+UNKNOWN_WEIGHT = 11
+
 # There is no instance_exec in current JRuby, so it needs to be defined
 class Object
   def instance_exec(*args, &block)

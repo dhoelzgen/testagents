@@ -1,7 +1,12 @@
 require 'simple_agent'
 
 class SaboteurAgent < SimpleAgent
-    
+  
+  def setup
+    super
+    bb.role = "Saboteur"
+  end
+  
   motivate :attack do
     next -1 if bb.disabled
     next -1 unless bb.position

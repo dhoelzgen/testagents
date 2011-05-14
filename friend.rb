@@ -1,5 +1,5 @@
 class Friend
-  attr_accessor :name, :health, :max_health, :position
+  attr_accessor :name, :health, :max_health, :position, :role
   
   def initialize(name, health, max_health)
     @name = name

@@ -2,29 +2,31 @@ require 'simple_agent'
 
 class RepairerAgent < SimpleAgent
   
+  def setup
+    super
+    bb.role = "Repairer"
+  end
+  
+  # Repair
+  
   motivate :repair do
+    next -1 unless bb.position
+    
+    # TODO: Check if destination vertex is known by agent
     candidates = @friends.values.find_all { |friend| friend.position == bb.position && friend.injured? && friend.name != @name }
     target = candidates.sort.first
     
     if bb.transient[:repair_target] = target
-      80
+      100
     else
       -1
     end
   end
   
-  motivate :findInjured do
-    candidates = @friends.values.find_all { |friend| friend.injured? && friend.name != @name }
-    next -1 unless candidates.any?
-    
-    # TODO: Handle unreachable agents
-    target = candidates.sort_by { |candidate| @graph.distance :from => bb.position, :to => candidate.position }.first
-    
-    bb.transient[:injured_target] = target
-    75
-  end
-  
   on_goal :repair do
+    # BUG: Sometimes bb.transient[:repair_target] is nil
+    next recharg! if bb.transient[:repair_target].nil?
+    
     say "Repairing #{bb.transient[:repair_target].name}"
     
     if bb.disabled
@@ -36,12 +38,4 @@ class RepairerAgent < SimpleAgent
     repair! bb.transient[:repair_target]
   end
   
-  on_goal :findInjured do
-    say "Walking to injured #{bb.transient[:injured_target].name}"
-    edge = @graph.path :from => bb.position, :to => bb.transient[:injured_target].position
-    
-    next recharge! unless has_energy edge.weight
-    goto! edge.target
-  end
-    
 end
