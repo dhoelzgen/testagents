@@ -70,7 +70,7 @@ class ActiveAgent
       after_deliberation if self.respond_to? :after_deliberation
     end
   rescue => ex
-    puts "#{ex.class} in agent cycle: #{ex.message}\n#{ex.backtrace.inspect}."
+    error "#{ex.class} in agent cycle: #{ex.message}\n#{ex.backtrace.inspect}."
     retry
   end
   
@@ -80,7 +80,6 @@ class ActiveAgent
     return unless percepts.any? and self.class.percept_blocks.any?
     
     percepts.each do |percept_string|
-      percept_string = percept_string.dup
       percept_ary = "#{percept_string}".scan(/[A-Za-z0-9]+/) 
       percept_name = percept_ary.slice!(0)
             
@@ -89,7 +88,7 @@ class ActiveAgent
       next unless applicable_blocks.any?
       
       applicable_blocks.each do |name, block|
-        @percept_cache = percept_string if enable_broadcast
+        @percept_cache = percept_string.dup if enable_broadcast
         instance_exec( *percept_ary, &block )
       end
     end
@@ -141,6 +140,10 @@ class ActiveAgent
   
   def say(msg)
     puts "#{@name}: #{msg}"
+  end
+  
+  def error(msg)
+    STDERR.puts "#{@name}: #{msg}"
   end
   
   def broadcast(msg=nil)

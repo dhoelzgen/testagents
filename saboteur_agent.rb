@@ -21,6 +21,9 @@ class SaboteurAgent < SimpleAgent
   end
   
   on_goal :attack do
+    # BUG: Sometimes bb.transient[:attack_target] is nil
+    next recharge! if bb.transient[:attack_target].nil?
+    
     say "Attacking #{bb.transient[:attack_target].name}"
     next recharge! unless has_energy 2
     attack! bb.transient[:attack_target]

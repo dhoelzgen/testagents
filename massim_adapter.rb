@@ -48,7 +48,9 @@ class MassimAdapter
   
   def new_percepts(agent_name)
     @cached_percepts[agent_name] ||= {}
-    @cached_percepts[agent_name] and @cached_percepts.delete agent_name
+    result = @cached_percepts[agent_name].dup
+    @cached_percepts.delete agent_name
+    result
   end
   
   def act!(agent_name, action)

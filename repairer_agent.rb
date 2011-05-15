@@ -25,7 +25,7 @@ class RepairerAgent < SimpleAgent
   
   on_goal :repair do
     # BUG: Sometimes bb.transient[:repair_target] is nil
-    next recharg! if bb.transient[:repair_target].nil?
+    next recharge! if bb.transient[:repair_target].nil?
     
     say "Repairing #{bb.transient[:repair_target].name}"
     

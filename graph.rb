@@ -39,48 +39,47 @@ class Graph
     raise "Missing origin" unless from = @vertices[args[:from]]
     raise "Missing destination" unless to = @vertices[args[:to]]
     
-    init_markers(from)
-    path_search from, to
+    caldulate_path( from, to )[1]
   end
   
   def distance(args={})
     raise "Missing origin" unless from = @vertices[args[:from]]
     raise "Missing destination" unless to = @vertices[args[:to]]
     
-    init_markers(from)
-    path_distance from, to
+    caldulate_path( from, to )[0]
+  end
+  
+  def node_distance(args={})
+    raise "Missing origin" unless from = @vertices[args[:from]]
+    raise "Missing destination" unless to = @vertices[args[:to]]
+    
+    caldulate_path( from, to )[2]
   end
   
   protected
     
-    def init_markers(from)
-      @vertices.values.each { |vertex| vertex.marked = (vertex == from ? true : false ) }
-    end
-    
-    def path_search(position, to)
-      position.mark!
-      return nil if position == to
-      position.edges.min_by do |e|
-        next INFINITY if e.target.marked?
-        next INFINITY if e.weight > @max_energy
-        candidate = path_search(e.target, to)
-        e.weight + ( candidate.nil? ? 0 : candidate.weight )
-      end
-    end
-    
-    def path_distance(position, to)
-      position.mark!
-      return 0 if position == to
-      result = INFINITY
+    def caldulate_path(position, to, visited=nil)
+      return [0, nil, 0] if position == to
+      visited ||= Array.new
+      
+      distance = INFINITY
+      edge = false
+      depth = 0
+      
       position.edges.each do |e|
-        next if e.target.marked?
+        next if visited.include? e.target
         next if e.weight > @max_energy
-        candidate = path_distance(e.target, to) + e.weight
-        if result > candidate then
-          result = candidate
+        
+        c_dist, c_edge, c_depth = caldulate_path( e.target, to, ( visited.dup << e.target ) )
+        
+        if distance > c_dist then
+          distance = c_dist + e.weight
+          edge = e
+          depth = c_depth
         end
       end
-      return result
+      
+      return [distance, edge, depth +1]
     end
     
 end
@@ -106,11 +105,10 @@ class Edge
 end
 
 class Vertex
-  attr_accessor :name, :edges, :value, :marked
+  attr_accessor :name, :edges, :value
   
   def initialize(name)
     @name = name
-    @marked = false
     @edges = Array.new
   end
   
@@ -120,16 +118,9 @@ class Vertex
     end
   end
   
-  def mark!
-    @marked = true
-  end
-  
-  def marked?
-    @marked
-  end
-  
-  def random_edge
-    @edges[rand( @edges.size )]
+  def random_edge(max_weight = INFINITY)
+    candidates = @edges.find_all { |edge| edge.weight <= max_weight }
+    candidates[rand( @edges.size )]
   end
   
   def [](vertex)

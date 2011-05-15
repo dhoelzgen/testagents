@@ -32,7 +32,7 @@ puts print_perceptions percepts unless percepts.empty?
 
 sleep 1 if @name == "a3"
 
-# Test actions
+# Tests actions
 @adapter.act! @name, MassimActions::goto_action("node1") if @name == "a1"
 @adapter.act! @name, MassimActions::recharge_action if @name == "a2"
 
@@ -140,5 +140,39 @@ on_goal :findInjured do
   next recharge! if edge.target.name == bb.transient[:injured_target].position
 
   next recharge! unless has_energy edge.weight
+  goto! edge.target
+end
+
+# Test
+
+motivate :graphTest do
+  999
+end
+
+on_goal :graphTest do
+  next recharge! unless bb.position
+  
+  if @graph[bb.position].edges.inject(false) { |mem, edge| edge.unknown_weight? ? true : false }
+    next recharge! unless has_energy 1
+    next survey!
+  end
+  
+  say "Doing test (#{@name}, #{@team})"
+  
+  edge = nil
+  
+  if @team == "A"
+    edge = @graph.path :from => bb.position, :to => @friends["a1"].position
+  elsif @team == "B"
+    edge = @graph.path :from => bb.position, :to => @friends["b1"].position
+  end
+  
+  error "I can't find my way" if edge == false
+  next recharge! unless edge
+  
+  say "Going to node #{edge.target.name}"
+  
+  next recharge! unless has_energy edge.weight
+  
   goto! edge.target
 end

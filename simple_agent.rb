@@ -152,24 +152,48 @@ class SimpleAgent < ActiveAgent
   
   motivate :getRepaired do
     # TODO: Evaluate what a Repairer Agent should do
-    next 95 if bb.health == 0 # && !( self.is_a? RepairerAgent )
+    next 95 if bb.health == 0 && !( self.is_a? RepairerAgent )
     -1
   end
   
   # Plans
   
   on_goal :randomWalk do
-    # TODO: Tend to walk towards nodes without other friendly agents (near it)
-    # TODO: Tend to walk towards nodes with high value
-    # TODO: Tend to stay if this is a good position
+    # DONE: Tend to stay if this is a good position
     if bb.zoneScore 
-      next recharge! if rand(bb.zoneScore) > 25
+      next recharge! if rand(bb.zoneScore) > 20
     end
     
-    # TODO: Tend to avoid nodes with enabled emeny agents (let attackers do this)
-    
     next recharge! unless @graph[bb.position]
-    edge = @graph[bb.position].random_edge # TODO: Select only edges with weight lower than maxEnergy
+    
+    if self.respond_to? :random_target
+      edge = random_target
+    else
+      # DONE: Select only edges with weight lower than maxEnergy
+      edge = @graph[bb.position].random_edge bb.maxEnergy
+      
+      # TODO: Tend to walk towards nodes without other friendly agents
+      
+      # TODO: Tend to walk towards nodes next to other nodes controlled by the team
+      
+      # TODO: Tend to avoid nodes with enabled emeny agents (let attackers do this)
+      
+      # TODO: Tend to walk towards nodes where both friendly and enemy agents are present (could be dangerous)
+      
+      # TODO: Tend to walk towards nodes with high value
+      
+      # DONE: If all friends are more than 3 nodes away, walk towards them
+      friends_by_distance = @friends.values.find_all {|friend| friend.name != @name && !friend.disabled? }.collect { |friend| [ friend.position, (friend.position.nil? ? 0 : @graph.node_distance( :from => bb.position, :to => friend.position ) ) ] }
+      friends_by_distance.sort! { |x, y| x.last <=> y.last }
+      if friends_by_distance.any? && friends_by_distance.first.last > 2
+        # TODO: Add propability to change edge
+        edge = @graph.path :from => bb.position, :to => friends_by_distance.first.first
+      end
+      
+      # TODO: Walk towards unknown regions (nodes with unsurveyed edges)
+      
+    end
+    
     next recharge! unless edge
     
     say "Going to node #{edge.target.name}"
@@ -186,8 +210,14 @@ class SimpleAgent < ActiveAgent
     
     edge = @graph.path :from => bb.position, :to => selected.position
     
-    next recharge! if edge.nil?
+    # TODO: If edge == false, no way was found - Do something else in this case
+    next recharge! unless edge
     next recharge! unless has_energy edge.weight
+    
+    if @graph.distance( :from => bb.position, :to => selected.position ) == INFINITY
+      # TODO: Walk towards unknown regions (nodes with unsurveyed edges)
+      error "I want to get repaired, but I don't know the way"
+    end
     
     goto! edge.target
   end
