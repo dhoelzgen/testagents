@@ -33,23 +33,55 @@ class Graph
     @vertices[name]
   end
   
-  # Pathfinding
+  # New Pathfinding
   
-  def path(args={})
+  def floodfill(position)
+    railse "Could not find position #{position}" unless start = @vertices[position]
+    
+    @vertices.values.each do |vertex|
+      vertex.distance = INFINITY
+      vertex.cost = INFINITY
+      vertex.next_edge = false
+    end
+    
+    start.distance = 0
+    start.next_edge = nil
+    
+    start.edges.each do |edge|
+      fill_path_values(edge, edge.target, edge.weight, 1, [start])
+    end
+  end
+  
+  def fill_path_values(next_edge, vertex, cost, distance, visited)
+    if vertex.cost > cost
+      vertex.cost = cost
+      vertex.next_edge = next_edge
+      vertex.distance = distance
+      
+      candidates = vertex.edges.find_all { |edge| !visited.include? edge.target }
+      candidates.each do |edge|
+        fill_path_values(next_edge, edge.target, cost + edge.weight, distance + 1, visited.dup << vertex)
+      end
+    end
+  end
+  
+  # Old Pathfinding
+  
+  def old_path(args={})
     raise "Missing origin" unless from = @vertices[args[:from]]
     raise "Missing destination" unless to = @vertices[args[:to]]
     
     caldulate_path( from, to )[1]
   end
   
-  def distance(args={})
+  def old_distance(args={})
     raise "Missing origin" unless from = @vertices[args[:from]]
     raise "Missing destination" unless to = @vertices[args[:to]]
     
     caldulate_path( from, to )[0]
   end
   
-  def node_distance(args={})
+  def old_node_distance(args={})
     raise "Missing origin" unless from = @vertices[args[:from]]
     raise "Missing destination" unless to = @vertices[args[:to]]
     
@@ -58,7 +90,7 @@ class Graph
   
   protected
     
-    def caldulate_path(position, to, visited=nil)
+    def old_caldulate_path(position, to, visited=nil)
       return [0, nil, 0] if position == to
       visited ||= Array.new
       
@@ -106,6 +138,7 @@ end
 
 class Vertex
   attr_accessor :name, :edges, :value
+  attr_accessor :distance, :cost, :next_edge
   
   def initialize(name)
     @name = name

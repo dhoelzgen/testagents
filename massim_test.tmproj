@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>simple_agent.rb</string>
+	<string>graph.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -16,7 +16,7 @@
 			<key>filename</key>
 			<string>massim_adapter.rb</string>
 			<key>lastUsed</key>
-			<date>2011-05-04T18:56:52Z</date>
+			<date>2011-05-15T09:17:01Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -46,13 +46,13 @@
 			<key>filename</key>
 			<string>active_agent.rb</string>
 			<key>lastUsed</key>
-			<date>2011-05-05T10:07:55Z</date>
+			<date>2011-05-15T09:18:06Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>initialize.rb</string>
 			<key>lastUsed</key>
-			<date>2011-05-04T16:25:03Z</date>
+			<date>2011-05-14T10:31:02Z</date>
 		</dict>
 		<dict>
 			<key>children</key>
@@ -61,33 +61,37 @@
 					<key>filename</key>
 					<string>simple_agent.rb</string>
 					<key>lastUsed</key>
-					<date>2011-05-05T10:07:55Z</date>
-					<key>selected</key>
-					<true/>
+					<date>2011-05-15T09:23:11Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>explorer_agent.rb</string>
 					<key>lastUsed</key>
-					<date>2011-05-04T18:57:45Z</date>
+					<date>2011-05-15T09:17:09Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>saboteur_agent.rb</string>
 					<key>lastUsed</key>
-					<date>2011-05-05T10:07:35Z</date>
+					<date>2011-05-15T09:15:38Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>inspector_agent.rb</string>
 					<key>lastUsed</key>
-					<date>2011-05-05T10:07:33Z</date>
+					<date>2011-05-14T11:28:15Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>repairer_agent.rb</string>
 					<key>lastUsed</key>
-					<date>2011-05-05T10:07:48Z</date>
+					<date>2011-05-14T11:20:35Z</date>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>sentinel_agent.rb</string>
+					<key>lastUsed</key>
+					<date>2011-05-14T10:58:27Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -99,25 +103,27 @@
 			<key>filename</key>
 			<string>team.rb</string>
 			<key>lastUsed</key>
-			<date>2011-05-05T10:07:49Z</date>
+			<date>2011-05-14T10:45:59Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>run.rb</string>
 			<key>lastUsed</key>
-			<date>2011-05-05T10:07:30Z</date>
+			<date>2011-05-15T09:22:28Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>graph.rb</string>
 			<key>lastUsed</key>
-			<date>2011-05-04T15:07:07Z</date>
+			<date>2011-05-15T09:23:11Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>notes.rb</string>
 			<key>lastUsed</key>
-			<date>2011-05-04T18:19:49Z</date>
+			<date>2011-05-15T09:09:29Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -129,7 +135,13 @@
 			<key>filename</key>
 			<string>friend.rb</string>
 			<key>lastUsed</key>
-			<date>2011-05-04T16:02:38Z</date>
+			<date>2011-05-15T09:17:14Z</date>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>test.rb</string>
+			<key>lastUsed</key>
+			<date>2011-05-14T16:48:36Z</date>
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
@@ -141,14 +153,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>23</integer>
+				<integer>43</integer>
 				<key>line</key>
-				<integer>35</integer>
+				<integer>90</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>52</integer>
 		</dict>
 		<key>belief_base.rb</key>
 		<dict>
@@ -164,28 +176,14 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>explorer_agent.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>20</integer>
-				<key>line</key>
-				<integer>4</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 		<key>friend.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>61</integer>
 				<key>line</key>
-				<integer>4</integer>
+				<integer>1</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -206,47 +204,49 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>initialize.rb</key>
+		<key>graph.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>72</integer>
+				<integer>32</integer>
 				<key>line</key>
-				<integer>8</integer>
+				<integer>53</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>inspector_agent.rb</key>
-		<dict>
-			<key>caret</key>
+			<integer>40</integer>
+			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
-				<integer>26</integer>
+				<integer>31</integer>
 				<key>line</key>
-				<integer>5</integer>
+				<integer>53</integer>
 			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>35</integer>
+				<key>line</key>
+				<integer>53</integer>
+			</dict>
 		</dict>
 		<key>massim_adapter.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>65</integer>
+				<integer>10</integer>
 				<key>line</key>
-				<integer>23</integer>
+				<integer>52</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>8</integer>
+			<integer>18</integer>
 		</dict>
 		<key>massim_util.rb</key>
 		<dict>
@@ -281,102 +281,42 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>863</integer>
-				<key>line</key>
 				<integer>0</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>859</integer>
 				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>869</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-		</dict>
-		<key>repairer_agent.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>36</integer>
-				<key>line</key>
-				<integer>19</integer>
+				<integer>42</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>18</integer>
 		</dict>
 		<key>run.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>31</integer>
+				<integer>51</integer>
 				<key>line</key>
-				<integer>24</integer>
+				<integer>44</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>saboteur_agent.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>26</integer>
-				<key>line</key>
-				<integer>5</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>6</integer>
 		</dict>
 		<key>simple_agent.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>4</integer>
+				<integer>6</integer>
 				<key>line</key>
-				<integer>136</integer>
+				<integer>185</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>26</integer>
-				<key>line</key>
-				<integer>136</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>4</integer>
-				<key>line</key>
-				<integer>136</integer>
-			</dict>
 		</dict>
 		<key>team.rb</key>
 		<dict>
@@ -392,15 +332,28 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
+		<key>test.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>31</integer>
+				<key>line</key>
+				<integer>4</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
 		<string>simple_agent.rb</string>
-		<string>explorer_agent.rb</string>
-		<string>saboteur_agent.rb</string>
-		<string>inspector_agent.rb</string>
 		<string>run.rb</string>
-		<string>repairer_agent.rb</string>
+		<string>test.rb</string>
+		<string>graph.rb</string>
+		<string>friend.rb</string>
 		<string>team.rb</string>
 		<string>active_agent.rb</string>
 		<string>massim_adapter.rb</string>
@@ -409,6 +362,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<false/>
 	<key>windowFrame</key>
-	<string>{{314, 298}, {1280, 774}}</string>
+	<string>{{266, 221}, {1303, 823}}</string>
 </dict>
 </plist>

@@ -17,14 +17,17 @@ class SimpleAgent < ActiveAgent
     bb.next_cycle
   end
   
+  def before_motivation
+    next unless bb.position
+    @graph.floodfill bb.position
+  end
+  
   on_percept :lastAction do |action|
     bb.lastAction = action
-    say "Last Action: #{bb.lastAction}"
   end
   
   on_percept :lastActionResult do |result|
     bb.lastActionResult = result
-    say "Last Action Result: #{bb.lastActionResult}"
   end
   
   on_percept :health do |value|
@@ -120,7 +123,6 @@ class SimpleAgent < ActiveAgent
     next if team == @team
     
     broadcast
-    say "Inspected agent #{name}, E #{energy} / #{max_energy}, H #{health} / #{max_health}" if is_percept?
     enemy = ( @enemies[name] ||= Enemy.new( name, position, team, (health == 0 ? "disabled" : "normal" ) ) )
     enemy.set_inspected( role, max_energy, max_health )
   end
@@ -128,7 +130,6 @@ class SimpleAgent < ActiveAgent
   # Motives
   
   motivate :recharge do
-    say "Energy: #{bb.energy} / #{bb.maxEnergy}"
     next 0 unless bb.energy and bb.maxEnergy
     next 30 if bb.energy < 3
     next ( (bb.maxEnergy - bb.energy) * 2 ) if bb.energy < bb.maxEnergy
@@ -136,8 +137,6 @@ class SimpleAgent < ActiveAgent
   end
   
   motivate :randomWalk do
-    # TODO: Intensity should depend on current zone score
-    #       If score is high, then the agent should tend to stay at its current place
     11
   end
   
@@ -183,11 +182,11 @@ class SimpleAgent < ActiveAgent
       # TODO: Tend to walk towards nodes with high value
       
       # DONE: If all friends are more than 3 nodes away, walk towards them
-      friends_by_distance = @friends.values.find_all {|friend| friend.name != @name && !friend.disabled? }.collect { |friend| [ friend.position, (friend.position.nil? ? 0 : @graph.node_distance( :from => bb.position, :to => friend.position ) ) ] }
+      friends_by_distance = @friends.values.find_all {|friend| friend.name != @name && !friend.disabled? }.collect { |friend| [ friend.position, (friend.position.nil? ? 0 : @graph[friend.position].distance ) ] }
       friends_by_distance.sort! { |x, y| x.last <=> y.last }
       if friends_by_distance.any? && friends_by_distance.first.last > 2
         # TODO: Add propability to change edge
-        edge = @graph.path :from => bb.position, :to => friends_by_distance.first.first
+        edge = @graph[friends_by_distance.first.first].next_edge
       end
       
       # TODO: Walk towards unknown regions (nodes with unsurveyed edges)
@@ -204,17 +203,17 @@ class SimpleAgent < ActiveAgent
   
   on_goal :getRepaired do
     repairer = @friends.values.find_all { |friend| friend.role == "Repairer" && friend.name != @name }
-    selected = repairer.sort_by { |candidate| @graph.distance :from => bb.position, :to => candidate.position }.first
+    selected = repairer.sort_by { |candidate| @graph[candidate.position].cost }.first
     
     next recharge! unless selected
     
-    edge = @graph.path :from => bb.position, :to => selected.position
+    edge = @graph[selected.position].next_edge
     
     # TODO: If edge == false, no way was found - Do something else in this case
     next recharge! unless edge
     next recharge! unless has_energy edge.weight
     
-    if @graph.distance( :from => bb.position, :to => selected.position ) == INFINITY
+    if @graph[selected.position].cost == INFINITY
       # TODO: Walk towards unknown regions (nodes with unsurveyed edges)
       error "I want to get repaired, but I don't know the way"
     end
