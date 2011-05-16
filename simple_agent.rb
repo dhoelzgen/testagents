@@ -151,7 +151,7 @@ class SimpleAgent < ActiveAgent
   
   motivate :getRepaired do
     # TODO: Evaluate what a Repairer Agent should do
-    next 95 if bb.health == 0 && !( self.is_a? RepairerAgent )
+    next 95 if bb.health == 0 # && !( self.is_a? RepairerAgent )
     -1
   end
   

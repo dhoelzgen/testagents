@@ -43,7 +43,7 @@ class RepairerAgent < SimpleAgent
 
   on_goal :findInjured do
     say "Walking to injured #{bb.transient[:injured_target].name}"
-    edge = @graph[bb.transient[:injured_target]].next_edge
+    edge = @graph[bb.transient[:injured_target].position].next_edge
 
     # BUG: The following case should not happen, because the repair goal should have been selected
     next repair! bb.transient[:injured_target] if edge.nil?
