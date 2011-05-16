@@ -35,7 +35,7 @@ class RepairerAgent < SimpleAgent
     target = candidates.sort_by { |candidate| @graph[candidate.position] ? @graph[candidate.position].cost : INFINITY }.first
     
     next -1 unless target && @graph[target.position]
-    next -1 if @graph[target.position].cost = INFINITY
+    next -1 if @graph[target.position].cost == INFINITY
     
     bb.transient[:injured_target] = target
     75
