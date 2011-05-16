@@ -27,14 +27,14 @@ class RepairerAgent < SimpleAgent
     next -1 unless bb.position
 
     candidates = @friends.values.find_all { |friend| friend.injured? && friend.name != @name }
-    next -1 unless candidates.any?
 
     # TODO: Handle unreachable agents
     # TODO: Check if destination vertex is known by agent
     # TODO: Target should be choosen by distance *and* health
-
-    target = candidates.sort_by { |candidate| @graph[candidate.position].cost }.first
     
+    target = candidates.sort_by { |candidate| @graph[candidate.position] ? @graph[candidate.position].cost : INFINITY }.first
+    
+    next -1 unless target && @graph[target.position]
     next -1 if @graph[target.position].cost = INFINITY
     
     bb.transient[:injured_target] = target

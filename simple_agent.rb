@@ -165,40 +165,70 @@ class SimpleAgent < ActiveAgent
     
     next recharge! unless @graph[bb.position]
     
-    if self.respond_to? :random_target
-      edge = random_target
+    if self.respond_to?( :random_target ) && selected_by_role = random_target
+      selected_edge = selected_by_role
     else
-      # DONE: Select only edges with weight lower than maxEnergy
-      edge = @graph[bb.position].random_edge bb.maxEnergy
-      
-      # TODO: Tend to walk towards nodes without other friendly agents
-      
-      # TODO: Tend to walk towards nodes next to other nodes controlled by the team
-      
-      # TODO: Tend to avoid nodes with enabled emeny agents (let attackers do this)
-      
-      # TODO: Tend to walk towards nodes where both friendly and enemy agents are present (could be dangerous)
-      
-      # TODO: Tend to walk towards nodes with high value
       
       # DONE: If all friends are more than 3 nodes away, walk towards them
       friends_by_distance = @friends.values.find_all {|friend| friend.name != @name && !friend.disabled? }.collect { |friend| [ friend.position, (friend.position.nil? ? 0 : @graph[friend.position].distance ) ] }
       friends_by_distance.sort! { |x, y| x.last <=> y.last }
-      if friends_by_distance.any? && friends_by_distance.first.last > 2
-        # TODO: Add propability to change edge
-        edge = @graph[friends_by_distance.first.first].next_edge
-      end
       
-      # TODO: Walk towards unknown regions (nodes with unsurveyed edges)
+      if friends_by_distance.any? && friends_by_distance.first.last > 2
+        
+        # TODO: Add propability to change edge
+        selected_edge = @graph[friends_by_distance.first.first].next_edge
+        
+      else
+        
+        # DONE: Select only edges with weight lower than maxEnergy
+        selected_edge = @graph[bb.position].random_edge bb.maxEnergy
+        
+        candidates = @graph[bb.position].all_below( bb.maxEnergy ).collect { |edge| [edge, 0] }
+
+        candidates.each do |edge, score|
+          
+          # DONE: Tend to walk towards nodes without other friendly agents
+          score += 1 if @friends.values.all? { |friend| friend.position != edge.target.name }
+          
+          edge.target.edges.each do |edge_2nd|
+
+            # DONE: Tend to walk towards nodes next to other nodes controlled by the team
+            score += 1 if @friends.values.any? { |friend| friend.position == edge_2nd.target.name }
+
+            # DONE: Tend to walk towards nodes with many nodes without friendly agents near them
+            score += 1 if @friends.values.all? { |friend| friend.position != edge_2nd.target.name }
+            
+          end
+                    
+        end
+
+        # TODO: Tend to avoid nodes with enabled emeny attacker (let attackers do this)
+
+        # TODO: Tend to walk towards nodes where both friendly and enemy agents are present (could be dangerous)
+
+        # TODO: Tend to walk towards nodes with high value, if now friendly agent is present
+        
+        # TODO: Walk towards unknown regions (nodes with unsurveyed edges)
+        
+        candidates.sort! { |x, y| x.last <=> y.last }
+        
+        # DONE: Pick random candidate with high score
+        candidate_index = -1
+        while change? && candidates[candidate_index] do
+          selected_edge = candidates[candidate_index].first
+          candidate_index -= 1
+        end
+        
+      end
       
     end
     
-    next recharge! unless edge
+    next recharge! unless selected_edge
     
-    say "Going to node #{edge.target.name}"
-    next recharge! unless has_energy edge.weight
+    say "Going to node #{selected_edge.target.name}"
+    next recharge! unless has_energy selected_edge.weight
     
-    goto! edge.target
+    goto! selected_edge.target
   end
   
   on_goal :getRepaired do
@@ -242,6 +272,10 @@ class SimpleAgent < ActiveAgent
     end
     
     true
+  end
+  
+  def change?
+    rand( 0 ) > 0.6
   end
   
   # Actions
