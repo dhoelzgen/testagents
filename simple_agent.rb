@@ -130,7 +130,7 @@ class SimpleAgent < ActiveAgent
   # Motives
   
   motivate :recharge do
-    next 0 unless bb.energy and bb.maxEnergy
+    next -1 unless bb.energy and bb.maxEnergy
     next 30 if bb.energy < 3
     next ( (bb.maxEnergy - bb.energy) * 2 ) if bb.energy < bb.maxEnergy
     1
