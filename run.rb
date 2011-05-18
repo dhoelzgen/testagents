@@ -1,16 +1,15 @@
 include Java
 
-require 'initialize'
+require 'lib/team'
 
-require 'team'
-require 'simple_agent'
-require 'explorer_agent'
-require 'saboteur_agent'
-require 'inspector_agent'
-require 'repairer_agent'
-require 'sentinel_agent'
+require 'agents/simple_agent'
+require 'agents/explorer_agent'
+require 'agents/saboteur_agent'
+require 'agents/inspector_agent'
+require 'agents/repairer_agent'
+require 'agents/sentinel_agent'
 
-require 'massim_adapter'
+require 'env/massim'
 
 # Redirect java output stream
 include_class 'java.io.PrintStream'

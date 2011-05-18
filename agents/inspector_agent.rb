@@ -1,4 +1,4 @@
-require 'simple_agent'
+require 'agents/simple_agent'
 
 class InspectorAgent < SimpleAgent
   

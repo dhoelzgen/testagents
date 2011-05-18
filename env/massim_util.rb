@@ -1,6 +1,6 @@
 include Java
 
-require 'lib/modified-eis'
+require 'ext/modified-eis'
 
 module MassimActions
   include_class Java::eis.iilang.Action

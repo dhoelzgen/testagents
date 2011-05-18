@@ -1,8 +1,9 @@
 require 'thread'
 
-require 'belief_base'
-require 'motive'
-require 'goal'
+require 'lib/initialize'
+require 'lib/belief_base'
+require 'lib/motive'
+require 'lib/goal'
 
 class ActiveAgent
   attr_accessor :name, :team

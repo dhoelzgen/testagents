@@ -1,7 +1,7 @@
 include Java
 
-require 'lib/modified-eis'
-require 'massim_util'
+require 'ext/modified-eis'
+require 'env/massim_util'
 
 class MassimAdapter
   include_class Java::eis.AgentListener

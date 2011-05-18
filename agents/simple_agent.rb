@@ -1,8 +1,10 @@
-require 'active_agent'
-require 'massim_util'
-require 'graph'
-require 'enemy'
-require 'friend'
+require 'lib/active_agent'
+
+require 'env/massim_util'
+
+require 'util/graph'
+require 'util/enemy'
+require 'util/friend'
 
 class SimpleAgent < ActiveAgent
   

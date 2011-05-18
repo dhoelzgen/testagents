@@ -1,3 +1,6 @@
+require 'util/vertex'
+require 'util/edge'
+
 class Graph
   attr_reader :vertices
   attr_accessor :max_energy
@@ -65,65 +68,4 @@ class Graph
     end
   end
     
-end
-
-class Edge
-  attr_accessor :source, :target
-  attr_writer :weight
-  
-  def initialize(source, target)
-    @source = source
-    @target = target
-  end
-  
-  def weight
-    return UNKNOWN_WEIGHT unless @weight
-    @weight
-  end
-  
-  def unknown_weight?
-    return @weight.nil?
-  end
-
-end
-
-class Vertex
-  attr_accessor :name, :edges, :value
-  attr_accessor :distance, :cost, :next_edge
-  
-  def initialize(name)
-    @name = name
-    @edges = Array.new
-  end
-  
-  def probed?
-    !value.nil?
-  end
-  
-  def add_edge(target)
-    if @edges.inject(true) { |mem, edge| next false if edge.target == target; mem }
-      @edges << Edge.new( self, target )
-    end
-  end
-  
-  def random_edge(max_weight = INFINITY)
-    candidates = @edges.find_all { |edge| edge.weight <= max_weight }
-    candidates[rand( @edges.size )]
-  end
-  
-  def all_below(max_weight = INFINITY)
-    @edges.find_all { |edge| edge.weight <= max_weight }
-  end
-  
-  def [](vertex)
-    @edges.each do |edge|
-      return edge if edge.target == vertex
-    end
-    nil
-  end
-  
-  def ==(other)
-    return @name == other.name
-  end
-  
 end
