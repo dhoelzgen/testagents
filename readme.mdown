@@ -1,0 +1,4 @@
+This is a semi-private project with the following purposes:
+
+* Evaluate strategies for another project used in a contest
+* Evaluate requirements and capabilities a ruby-based agent framework should provide
