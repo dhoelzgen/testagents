@@ -28,4 +28,5 @@ class SaboteurAgent < SimpleAgent
     next recharge! unless has_energy 2
     attack! bb.transient[:attack_target]
   end
+  
 end

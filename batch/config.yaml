@@ -1,0 +1,12 @@
+--- 
+:default: 
+- ExplorerAgent
+- ExplorerAgent
+- RepairerAgent
+- RepairerAgent
+- SaboteurAgent
+- SaboteurAgent
+- SentinelAgent
+- SentinelAgent
+- InspectorAgent
+- InspectorAgent
