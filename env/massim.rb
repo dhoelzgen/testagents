@@ -10,6 +10,7 @@ class MassimAdapter
   include Java::eis.AgentListener
   
   def initialize
+    @stop = false
     className = "massim.eismassim.EnvironmentInterface"
     @environment_interface = EILoader.fromClassName className
     @attached_agents = Hash.new
@@ -30,7 +31,11 @@ class MassimAdapter
   end
   
   def close(agent_name)
-    @environment_interface.unregisterAgent agentName
+    @attached_agents[agent_name].kill
+    @attached_agents.delete agent_name
+    @environment_interface.detachAgentListener agent_name, self
+    @environment_interface.freeEntity agent_name
+    puts "Environment connection for #{agent_name} closed"
   rescue => ex
     puts "(ADAPTER) #{ex.class}: #{ex.message}"
   end
@@ -40,9 +45,9 @@ class MassimAdapter
   end
   
   def handlePercepts(agent_name, percepts)
-    @cached_percepts[agent_name] = percepts
+    return if @stop
     
-    # TODO: Re-create thread if killed
+    @cached_percepts[agent_name] = percepts
     @attached_agents[agent_name].run
   end
   
@@ -63,6 +68,18 @@ class MassimAdapter
     @environment_interface.start
   rescue => ex
     puts "(ADAPTER) #{ex.class}: #{ex.message}"
+  end
+  
+  def stop
+    @stop = true
+    @environment_interface.kill
+    puts "Killed environment interface"
+  rescue => ex
+    puts "(ADAPTER) #{ex.class}: #{ex.message}"
+  end
+  
+  def all_agents
+    @attached_agents
   end
   
 end

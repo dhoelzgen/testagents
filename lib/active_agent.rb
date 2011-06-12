@@ -28,6 +28,8 @@ class ActiveAgent
     @inbox_mutex = Mutex.new
     @inbox = Array.new
     
+    @kill = false
+    
     setup if self.respond_to? :setup
   end
   
@@ -48,8 +50,9 @@ class ActiveAgent
   end
   
   def run
-    while true
+    while !@kill
       sleep
+      return if @kill
       
       # TODO: Filter addition should be done by keyword with an array of filters
       #       Desired form before_revision :filter_name
@@ -72,7 +75,12 @@ class ActiveAgent
     end
   rescue => ex
     error "#{ex.class} in agent cycle: #{ex.message}\n#{ex.backtrace.inspect}."
-    retry
+    retry unless @kill
+  end
+  
+  def kill!
+    say "Got kill signal"
+    @kill = true
   end
   
   def revise(percepts={}, enable_broadcast=false)
@@ -144,7 +152,7 @@ class ActiveAgent
   end
   
   def error(msg)
-    STDERR.puts "#{@name}: #{msg}"
+    $stderr.puts "#{@name}: #{msg}"
   end
   
   def broadcast(msg=nil)

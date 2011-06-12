@@ -13,6 +13,9 @@ class SimpleAgent < ActiveAgent
     @graph = Graph.new
     @friends = Hash.new
     @enemies = Hash.new
+    
+    @team_score = 0
+    @current_step = 0
   end
   
   def before_revision
@@ -312,6 +315,24 @@ class SimpleAgent < ActiveAgent
   
   def skip!
     act! MassimActions::skip
+  end
+  
+  # Batch Support
+  
+  on_percept :score do |score|
+    @team_score = score.to_i
+  end
+  
+  on_percept :step do |step|
+    @current_step = step.to_i
+  end
+  
+  def team_score
+    @team_score
+  end
+  
+  def current_step
+    @current_step
   end
   
 end
