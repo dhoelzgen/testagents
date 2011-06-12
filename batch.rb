@@ -1,6 +1,9 @@
 include Java
 
 require 'yaml'
+require 'date'
+require 'ftools'
+
 require 'lib/team'
 
 require 'agents/simple_agent'
@@ -33,6 +36,10 @@ $errout = FakeStdOut.new
 config = YAML::load( File.open( 'batch/config.yaml' ) )
 
 # Run batch
+@logpath = "log/#{DateTime::now.strftime "%s"}"
+
+File.makedirs(@logpath)
+File.makedirs("#{@logpath}/data")
 
 @batch_log = Array.new
 
@@ -41,7 +48,7 @@ def add_batch_log(msg)
   @batch_log << log
   @real_stdout.puts log
   
-  File.open('batchlog.txt', 'a') do |logfile|
+  File.open("#{@logpath}/results.txt", 'a') do |logfile|
     logfile.write("#{log}\n")
   end
 end
@@ -53,8 +60,14 @@ config.each_with_index do |team_a, a_index|
     b_name, b_members = team_b
     next if b_index < a_index
     
-    a_score = 0
-    b_score = 0
+    a_score, a_zone_score = 0
+    b_score, b_zone_score = 0
+    
+    data_a_score = Array.new
+    data_b_score = Array.new
+    data_a_zone = Array.new
+    data_b_zone = Array.new
+    
     step = 0
     
     # Start Massim
@@ -91,10 +104,13 @@ config.each_with_index do |team_a, a_index|
       sleep 10
       
       # Gather score
-      a_score = team_a.agents.first.team_score
-      b_score = team_b.agents.first.team_score
+      data_a_score << (a_score = team_a.agents.first.team_score)
+      data_b_score << (b_score = team_b.agents.first.team_score)
+      data_a_zone << (a_zone_score = team_a.agents.first.zone_score)
+      data_b_zone << (b_zone_score = team_b.agents.first.zone_score)
+      
       step = team_a.agents.first.current_step
-      @real_stdout.puts "Step #{step.to_s.center(3)}: #{a_score.to_s.center(7)} - #{b_score.to_s.center(7)}"
+      @real_stdout.puts "Step #{step.to_s.center(3)}: #{a_score.to_s.center(7)} - #{b_score.to_s.center(7)} (#{a_zone_score.to_s.center(7)} - #{b_zone_score.to_s.center(7)})"
     end
   
     # Clean up
@@ -104,8 +120,21 @@ config.each_with_index do |team_a, a_index|
     
     # TODO: Find a way to really clean up the java listener threads
     
+    # Save data for chart creation
+    chart_data = [data_a_score, data_a_zone, data_b_score, data_b_zone]
+    sim_data = { :data => chart_data,
+      :title => "#{a_name} vs. #{b_name}",
+      :legend => ['A Score','A Zone', 'B Score', 'B Zone'],
+      :bar_colors => 'ff0000,ff8888,0000ff,8888ff',
+      :format => 'file', :filename => "charts/#{a_name}_vs_#{b_name}.png"
+    }
+    
+    File.open("#{@logpath}/data/#{a_name}_vs_#{b_name}.yaml", 'w+') do |data|
+      data.write(sim_data.to_yaml)
+    end
+    
     # Remember result
-    add_batch_log "#{sim_string} #{a_score.to_s.center(7)} - #{b_score.to_s.center(7)}"
+    add_batch_log "#{sim_string} #{a_score.to_s.center(7)} - #{b_score.to_s.center(7)} (#{a_zone_score.to_s.center(7)} - #{b_zone_score.to_s.center(7)})"
     
   end
 end

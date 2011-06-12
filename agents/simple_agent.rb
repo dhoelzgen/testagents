@@ -16,6 +16,7 @@ class SimpleAgent < ActiveAgent
     
     @team_score = 0
     @current_step = 0
+    @sum_zone_score = 0
   end
   
   def before_revision
@@ -327,8 +328,16 @@ class SimpleAgent < ActiveAgent
     @current_step = step.to_i
   end
   
+  on_percept :zonesScore do |zscore|
+    @sum_zone_score += zscore.to_i
+  end
+  
   def team_score
     @team_score
+  end
+  
+  def zone_score
+    @sum_zone_score
   end
   
   def current_step
