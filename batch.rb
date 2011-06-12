@@ -126,7 +126,8 @@ config.each_with_index do |team_a, a_index|
       :title => "#{a_name} vs. #{b_name}",
       :legend => ['A Score','A Zone', 'B Score', 'B Zone'],
       :bar_colors => 'ff0000,ff8888,0000ff,8888ff',
-      :format => 'file', :filename => "charts/#{a_name}_vs_#{b_name}.png"
+      :format => 'file', :filename => "charts/#{a_name}_vs_#{b_name}.png",
+      :size => '600x400'
     }
     
     File.open("#{@logpath}/data/#{a_name}_vs_#{b_name}.yaml", 'w+') do |data|
