@@ -40,6 +40,10 @@ def add_batch_log(msg)
   log = "#{Time.now} - #{msg}"
   @batch_log << log
   @real_stdout.puts log
+  
+  File.open('batchlog.txt', 'a') do |logfile|
+    logfile.write("#{log}\n")
+  end
 end
 
 config.each_with_index do |team_a, a_index|
