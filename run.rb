@@ -11,6 +11,10 @@ require 'agents/inspector_agent'
 require 'agents/repairer_agent'
 require 'agents/sentinel_agent'
 
+# Experimental agents
+
+require 'experimental/aggressive_saboteur'
+
 require 'env/massim'
 
 # Redirect java output stream
@@ -45,8 +49,8 @@ team_b = Team.new environment do |team|
   team.agent ExplorerAgent.new "b2", "B"
   team.agent RepairerAgent.new "b3", "B" # Repairer
   team.agent RepairerAgent.new "b4", "B"
-  team.agent SaboteurAgent.new "b5", "B" # Saboteur
-  team.agent SaboteurAgent.new "b6", "B"
+  team.agent AggressiveSaboteurAgent.new "b5", "B" # Saboteur
+  team.agent AggressiveSaboteurAgent.new "b6", "B"
   team.agent SentinelAgent.new "b7", "B" # Sentinel
   team.agent SentinelAgent.new "b8", "B"
   team.agent InspectorAgent.new "b9", "B" # Inspector

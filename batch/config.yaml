@@ -24,3 +24,16 @@
 - SentinelAgent
 - InspectorAgent
 - InspectorAgent
+
+# Default implementation with aggressive saboteurs
+:aggressive: 
+- ExplorerAgent
+- ExplorerAgent
+- RepairerAgent
+- RepairerAgent
+- AggressiveSaboteurAgent
+- AggressiveSaboteurAgent
+- SentinelAgent
+- SentinelAgent
+- InspectorAgent
+- InspectorAgent

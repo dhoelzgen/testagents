@@ -6,12 +6,20 @@ require 'ftools'
 
 require 'lib/team'
 
+# Default agents
+
 require 'agents/simple_agent'
 require 'agents/explorer_agent'
 require 'agents/saboteur_agent'
 require 'agents/inspector_agent'
 require 'agents/repairer_agent'
 require 'agents/sentinel_agent'
+
+# Experimental agents
+
+require 'experimental/aggressive_saboteur'
+
+# Environment
 
 require 'env/massim'
 
