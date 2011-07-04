@@ -318,6 +318,10 @@ class SimpleAgent < ActiveAgent
     act! MassimActions::skip
   end
   
+  def parry!
+    act! MassimActions::parry
+  end
+  
   # Batch Support
   
   on_percept :score do |score|

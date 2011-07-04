@@ -34,6 +34,10 @@ module MassimActions
     Action.new "repair", (Identifier.new target_name)
   end
   
+  def self.parry
+     Action.new "parry"
+  end
+  
   def self.skip
     Action.new "skip"
   end

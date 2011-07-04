@@ -19,6 +19,7 @@ class Vertex
   
   def random_edge(max_weight = INFINITY)
     candidates = @edges.find_all { |edge| edge.weight <= max_weight }
+    return nil unless candidates.any?
     candidates[rand( @edges.size )]
   end
   

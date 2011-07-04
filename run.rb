@@ -14,6 +14,7 @@ require 'agents/sentinel_agent'
 # Experimental agents
 
 require 'experimental/aggressive_saboteur'
+require 'experimental/parry_agents'
 
 require 'env/massim'
 
@@ -45,16 +46,16 @@ end
 
 
 team_b = Team.new environment do |team|
-  team.agent ExplorerAgent.new "b1", "B" # Explorer
-  team.agent ExplorerAgent.new "b2", "B"
-  team.agent RepairerAgent.new "b3", "B" # Repairer
-  team.agent RepairerAgent.new "b4", "B"
+  team.agent ParryExplorerAgent.new "b1", "B" # Explorer
+  team.agent ParryExplorerAgent.new "b2", "B"
+  team.agent ParryRepairerAgent.new "b3", "B" # Repairer
+  team.agent ParryRepairerAgent.new "b4", "B"
   team.agent AggressiveSaboteurAgent.new "b5", "B" # Saboteur
   team.agent AggressiveSaboteurAgent.new "b6", "B"
-  team.agent SentinelAgent.new "b7", "B" # Sentinel
-  team.agent SentinelAgent.new "b8", "B"
-  team.agent InspectorAgent.new "b9", "B" # Inspector
-  team.agent InspectorAgent.new "b10", "B"
+  team.agent ParrySentinelAgent.new "b7", "B" # Sentinel
+  team.agent ParrySentinelAgent.new "b8", "B"
+  team.agent ParryInspectorAgent.new "b9", "B" # Inspector
+  team.agent ParryInspectorAgent.new "b10", "B"
 end
 
 environment.start

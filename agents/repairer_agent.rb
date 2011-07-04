@@ -17,7 +17,7 @@ class RepairerAgent < SimpleAgent
     target = candidates.sort.first
     
     if bb.transient[:repair_target] = target
-      100
+      95
     else
       -1
     end
